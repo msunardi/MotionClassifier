@@ -1,0 +1,346 @@
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/trainx.csv, data: (2297, 10, 8) - target: (2297, 10, 1)
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/validationx.csv, data: (181, 10, 8) - target: (181, 10, 1)
+INFO:root:[DO THE THING] (2250, 10, 8)
+INFO:root:[DO THE THING] (2250, 10, 1)
+INFO:root:"{\"class_name\": \"Sequential\", \"keras_version\": \"2.0.4\", \"config\": [{\"class_name\": \"GRU\", \"config\": {\"recurrent_activation\": \"hard_sigmoid\", \"dtype\": \"float32\", \"trainable\": true, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"seed\": null, \"gain\": 1.0}}, \"use_bias\": true, \"bias_regularizer\": null, \"implementation\": 0, \"unroll\": false, \"activation\": \"tanh\", \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1024, \"batch_input_shape\": [50, 10, 8], \"activity_regularizer\": null, \"recurrent_dropout\": 0.0, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"kernel_constraint\": null, \"dropout\": 0.0, \"stateful\": false, \"recurrent_regularizer\": null, \"name\": \"gru_1\", \"bias_constraint\": null, \"go_backwards\": false, \"kernel_regularizer\": null, \"return_sequences\": true, \"recurrent_constraint\": null}}, {\"class_name\": \"GRU\", \"config\": {\"recurrent_activation\": \"hard_sigmoid\", \"trainable\": true, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"seed\": null, \"gain\": 1.0}}, \"use_bias\": true, \"bias_regularizer\": null, \"implementation\": 0, \"unroll\": false, \"activation\": \"tanh\", \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1024, \"activity_regularizer\": null, \"recurrent_dropout\": 0.0, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"kernel_constraint\": null, \"dropout\": 0.0, \"stateful\": true, \"recurrent_regularizer\": null, \"name\": \"gru_2\", \"bias_constraint\": null, \"go_backwards\": false, \"kernel_regularizer\": null, \"return_sequences\": true, \"recurrent_constraint\": null}}, {\"class_name\": \"GRU\", \"config\": {\"recurrent_activation\": \"hard_sigmoid\", \"trainable\": true, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"seed\": null, \"gain\": 1.0}}, \"use_bias\": true, \"bias_regularizer\": null, \"implementation\": 0, \"unroll\": false, \"activation\": \"tanh\", \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1024, \"activity_regularizer\": null, \"recurrent_dropout\": 0.0, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"kernel_constraint\": null, \"dropout\": 0.0, \"stateful\": true, \"recurrent_regularizer\": null, \"name\": \"gru_3\", \"bias_constraint\": null, \"go_backwards\": false, \"kernel_regularizer\": null, \"return_sequences\": true, \"recurrent_constraint\": null}}, {\"class_name\": \"GRU\", \"config\": {\"recurrent_activation\": \"hard_sigmoid\", \"trainable\": true, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"seed\": null, \"gain\": 1.0}}, \"use_bias\": true, \"bias_regularizer\": null, \"implementation\": 0, \"unroll\": false, \"activation\": \"tanh\", \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1024, \"activity_regularizer\": null, \"recurrent_dropout\": 0.0, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"kernel_constraint\": null, \"dropout\": 0.0, \"stateful\": true, \"recurrent_regularizer\": null, \"name\": \"gru_4\", \"bias_constraint\": null, \"go_backwards\": false, \"kernel_regularizer\": null, \"return_sequences\": true, \"recurrent_constraint\": null}}, {\"class_name\": \"Dropout\", \"config\": {\"rate\": 0.2, \"trainable\": true, \"name\": \"dropout_1\"}}, {\"class_name\": \"Dense\", \"config\": {\"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"name\": \"dense_1\", \"kernel_constraint\": null, \"bias_regularizer\": null, \"bias_constraint\": null, \"activation\": \"sigmoid\", \"trainable\": true, \"kernel_regularizer\": null, \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1, \"use_bias\": true, \"activity_regularizer\": null}}], \"backend\": \"tensorflow\"}"
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/testx.csv, data: (186, 10, 8) - target: (186, 10, 1)
+INFO:root:[TEST] p vs y: 0.971767 - 1.0 --> (abs) 0.0282325744629*
+INFO:root:[TEST] p vs y: 0.0321361 - 0.0 --> (abs) 0.0321360789239*
+INFO:root:[TEST] p vs y: 0.541777 - 1.0 --> (abs) 0.4582234025
+INFO:root:[TEST] p vs y: 0.260611 - 0.0 --> (abs) 0.260611325502*
+INFO:root:[TEST] p vs y: 0.965004 - 1.0 --> (abs) 0.0349963903427*
+INFO:root:[TEST] p vs y: 0.0176803 - 0.0 --> (abs) 0.0176802966744*
+INFO:root:[TEST] p vs y: 0.988353 - 1.0 --> (abs) 0.0116470456123*
+INFO:root:[TEST] p vs y: 0.0239882 - 0.0 --> (abs) 0.023988166824*
+INFO:root:[TEST] p vs y: 0.949771 - 1.0 --> (abs) 0.0502290725708*
+INFO:root:[TEST] p vs y: 0.222832 - 0.0 --> (abs) 0.22283193469*
+INFO:root:[TEST] p vs y: 0.794514 - 1.0 --> (abs) 0.205486059189*
+INFO:root:[TEST] p vs y: 0.367735 - 0.0 --> (abs) 0.367735236883
+INFO:root:[TEST] p vs y: 0.854126 - 1.0 --> (abs) 0.14587366581*
+INFO:root:[TEST] p vs y: 0.0609003 - 0.0 --> (abs) 0.0609003305435*
+INFO:root:[TEST] p vs y: 0.0758276 - 0.0 --> (abs) 0.0758276358247*
+INFO:root:[TEST] p vs y: 0.942694 - 1.0 --> (abs) 0.0573061704636*
+INFO:root:[TEST] p vs y: 0.0219186 - 0.0 --> (abs) 0.0219186060131*
+INFO:root:[TEST] p vs y: 0.981742 - 1.0 --> (abs) 0.0182579159737*
+INFO:root:[TEST] p vs y: 0.12814 - 0.0 --> (abs) 0.128140360117*
+INFO:root:[TEST] p vs y: 0.949765 - 1.0 --> (abs) 0.0502354502678*
+INFO:root:[TEST] p vs y: 0.0395502 - 0.0 --> (abs) 0.0395501628518*
+INFO:root:[TEST] p vs y: 0.964008 - 1.0 --> (abs) 0.0359916687012*
+INFO:root:[TEST] p vs y: 0.0551321 - 0.0 --> (abs) 0.0551320537925*
+INFO:root:[TEST] p vs y: 0.964874 - 1.0 --> (abs) 0.0351259112358*
+INFO:root:[TEST] p vs y: 0.079706 - 0.0 --> (abs) 0.079706043005*
+INFO:root:[TEST] p vs y: 0.893317 - 1.0 --> (abs) 0.106683135033*
+INFO:root:[TEST] p vs y: 0.368391 - 0.0 --> (abs) 0.368390738964
+INFO:root:[TEST] p vs y: 0.982032 - 1.0 --> (abs) 0.0179680585861*
+INFO:root:[TEST] p vs y: 0.0338546 - 0.0 --> (abs) 0.0338545851409*
+INFO:root:[TEST] p vs y: 0.981765 - 1.0 --> (abs) 0.018235206604*
+INFO:root:[TEST] p vs y: 0.033039 - 0.0 --> (abs) 0.0330389924347*
+INFO:root:[TEST] p vs y: 0.462305 - 0.0 --> (abs) 0.462304919958
+INFO:root:[TEST] p vs y: 0.938482 - 1.0 --> (abs) 0.0615181922913*
+INFO:root:[TEST] p vs y: 0.163762 - 0.0 --> (abs) 0.163761749864*
+INFO:root:[TEST] p vs y: 0.947496 - 1.0 --> (abs) 0.0525040626526*
+INFO:root:[TEST] p vs y: 0.089285 - 0.0 --> (abs) 0.0892850458622*
+INFO:root:[TEST] p vs y: 0.779719 - 1.0 --> (abs) 0.220280766487*
+INFO:root:[TEST] p vs y: 0.208995 - 0.0 --> (abs) 0.208994865417*
+INFO:root:[TEST] p vs y: 0.232363 - 0.0 --> (abs) 0.23236310482*
+INFO:root:[TEST] p vs y: 0.912507 - 1.0 --> (abs) 0.087493121624*
+INFO:root:[TEST] p vs y: 0.298308 - 0.0 --> (abs) 0.298307776451*
+INFO:root:[TEST] p vs y: 0.918785 - 1.0 --> (abs) 0.0812150835991*
+INFO:root:[TEST] p vs y: 0.264644 - 0.0 --> (abs) 0.264644384384*
+INFO:root:[TEST] p vs y: 0.924507 - 1.0 --> (abs) 0.0754933357239*
+INFO:root:[TEST] p vs y: 0.148419 - 0.0 --> (abs) 0.148418933153*
+INFO:root:[TEST] p vs y: 0.939485 - 1.0 --> (abs) 0.0605149269104*
+INFO:root:[TEST] p vs y: 0.343516 - 0.0 --> (abs) 0.343515962362
+INFO:root:[TEST] p vs y: 0.944336 - 1.0 --> (abs) 0.0556638836861*
+INFO:root:[TEST] p vs y: 0.184815 - 0.0 --> (abs) 0.184814751148*
+INFO:root:[TEST] p vs y: 0.920655 - 1.0 --> (abs) 0.0793452262878*
+INFO:root:[TEST] Correct: 45 vs. Wrong: 5
+INFO:root:[TEST] Accuracy: 0.9
+INFO:root:test_the_thing - Elapsed: 0:00:00.954035
+INFO:root:[SAVE_MODEL] Saving model to /home/mathias/Projects/jupyter_notebooks/motion_data/models/model_gru_0.h5 ...
+INFO:root:[SAVE_MODEL] Model saved.
+INFO:root:None
+INFO:root:retrain_model - Elapsed: 0:39:45.155698
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/testx.csv, data: (186, 10, 8) - target: (186, 10, 1)
+INFO:root:[TEST] p vs y: 0.925483 - 1.0 --> (abs) 0.0745170712471*
+INFO:root:[TEST] p vs y: 0.0118416 - 0.0 --> (abs) 0.0118415784091*
+INFO:root:[TEST] p vs y: 0.0909594 - 1.0 --> (abs) 0.909040592611
+INFO:root:[TEST] p vs y: 0.253559 - 0.0 --> (abs) 0.253559052944*
+INFO:root:[TEST] p vs y: 0.945015 - 1.0 --> (abs) 0.0549853444099*
+INFO:root:[TEST] p vs y: 0.0228248 - 0.0 --> (abs) 0.0228247866035*
+INFO:root:[TEST] p vs y: 0.943771 - 1.0 --> (abs) 0.0562286376953*
+INFO:root:[TEST] p vs y: 0.00478627 - 0.0 --> (abs) 0.00478626741096*
+INFO:root:[TEST] p vs y: 0.888268 - 1.0 --> (abs) 0.111732125282*
+INFO:root:[TEST] p vs y: 0.125664 - 0.0 --> (abs) 0.125663861632*
+INFO:root:[TEST] p vs y: 0.733931 - 1.0 --> (abs) 0.266069412231*
+INFO:root:[TEST] p vs y: 0.0736136 - 0.0 --> (abs) 0.0736135989428*
+INFO:root:[TEST] p vs y: 0.60225 - 1.0 --> (abs) 0.397750377655
+INFO:root:[TEST] p vs y: 0.00628176 - 0.0 --> (abs) 0.00628175865859*
+INFO:root:[TEST] p vs y: 0.0560746 - 0.0 --> (abs) 0.0560746267438*
+INFO:root:[TEST] p vs y: 0.614056 - 1.0 --> (abs) 0.385944366455
+INFO:root:[TEST] p vs y: 0.0094393 - 0.0 --> (abs) 0.00943930353969*
+INFO:root:[TEST] p vs y: 0.905282 - 1.0 --> (abs) 0.0947176814079*
+INFO:root:[TEST] p vs y: 0.0154462 - 0.0 --> (abs) 0.0154462037608*
+INFO:root:[TEST] p vs y: 0.861238 - 1.0 --> (abs) 0.138761997223*
+INFO:root:[TEST] p vs y: 0.0129396 - 0.0 --> (abs) 0.0129396319389*
+INFO:root:[TEST] p vs y: 0.913356 - 1.0 --> (abs) 0.0866441726685*
+INFO:root:[TEST] p vs y: 0.0331719 - 0.0 --> (abs) 0.0331718511879*
+INFO:root:[TEST] p vs y: 0.855508 - 1.0 --> (abs) 0.144492268562*
+INFO:root:[TEST] p vs y: 0.159615 - 0.0 --> (abs) 0.159615412354*
+INFO:root:[TEST] p vs y: 0.894683 - 1.0 --> (abs) 0.10531681776*
+INFO:root:[TEST] p vs y: 0.0443057 - 0.0 --> (abs) 0.0443056896329*
+INFO:root:[TEST] p vs y: 0.919645 - 1.0 --> (abs) 0.0803545713425*
+INFO:root:[TEST] p vs y: 0.0132783 - 0.0 --> (abs) 0.0132783157751*
+INFO:root:[TEST] p vs y: 0.844647 - 1.0 --> (abs) 0.155352950096*
+INFO:root:[TEST] p vs y: 0.0191022 - 0.0 --> (abs) 0.0191021803766*
+INFO:root:[TEST] p vs y: 0.139831 - 0.0 --> (abs) 0.139830976725*
+INFO:root:[TEST] p vs y: 0.655973 - 1.0 --> (abs) 0.344026863575
+INFO:root:[TEST] p vs y: 0.0287496 - 0.0 --> (abs) 0.0287496354431*
+INFO:root:[TEST] p vs y: 0.647447 - 1.0 --> (abs) 0.352553427219
+INFO:root:[TEST] p vs y: 0.00874135 - 0.0 --> (abs) 0.00874135270715*
+INFO:root:[TEST] p vs y: 0.799078 - 1.0 --> (abs) 0.200922429562*
+INFO:root:[TEST] p vs y: 0.0344414 - 0.0 --> (abs) 0.034441433847*
+INFO:root:[TEST] p vs y: 0.0550518 - 0.0 --> (abs) 0.0550517626107*
+INFO:root:[TEST] p vs y: 0.944372 - 1.0 --> (abs) 0.055627822876*
+INFO:root:[TEST] p vs y: 0.0534705 - 0.0 --> (abs) 0.0534705296159*
+INFO:root:[TEST] p vs y: 0.947348 - 1.0 --> (abs) 0.0526517629623*
+INFO:root:[TEST] p vs y: 0.100872 - 0.0 --> (abs) 0.100872322917*
+INFO:root:[TEST] p vs y: 0.901295 - 1.0 --> (abs) 0.0987054109573*
+INFO:root:[TEST] p vs y: 0.204553 - 0.0 --> (abs) 0.204553321004*
+INFO:root:[TEST] p vs y: 0.900964 - 1.0 --> (abs) 0.0990363359451*
+INFO:root:[TEST] p vs y: 0.15341 - 0.0 --> (abs) 0.153410330415*
+INFO:root:[TEST] p vs y: 0.965506 - 1.0 --> (abs) 0.0344940423965*
+INFO:root:[TEST] p vs y: 0.0690563 - 0.0 --> (abs) 0.0690563470125*
+INFO:root:[TEST] p vs y: 0.910788 - 1.0 --> (abs) 0.0892118215561*
+INFO:root:[TEST] Correct: 45 vs. Wrong: 5
+INFO:root:[TEST] Accuracy: 0.9
+INFO:root:test_the_thing - Elapsed: 0:00:00.780294
+INFO:root:[SAVE_MODEL] Saving model to /home/mathias/Projects/jupyter_notebooks/motion_data/models/model_gru_1.h5 ...
+INFO:root:[SAVE_MODEL] Model saved.
+INFO:root:None
+INFO:root:retrain_model - Elapsed: 0:39:15.729069
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/testx.csv, data: (186, 10, 8) - target: (186, 10, 1)
+INFO:root:[TEST] p vs y: 0.948609 - 1.0 --> (abs) 0.0513906478882*
+INFO:root:[TEST] p vs y: 0.0794208 - 0.0 --> (abs) 0.0794208347797*
+INFO:root:[TEST] p vs y: 0.64283 - 1.0 --> (abs) 0.35717022419
+INFO:root:[TEST] p vs y: 0.0941667 - 0.0 --> (abs) 0.0941667109728*
+INFO:root:[TEST] p vs y: 0.906144 - 1.0 --> (abs) 0.093856215477*
+INFO:root:[TEST] p vs y: 0.0346361 - 0.0 --> (abs) 0.0346361473203*
+INFO:root:[TEST] p vs y: 0.936112 - 1.0 --> (abs) 0.0638879537582*
+INFO:root:[TEST] p vs y: 0.0184231 - 0.0 --> (abs) 0.018423108384*
+INFO:root:[TEST] p vs y: 0.940091 - 1.0 --> (abs) 0.0599086880684*
+INFO:root:[TEST] p vs y: 0.0646774 - 0.0 --> (abs) 0.0646773502231*
+INFO:root:[TEST] p vs y: 0.720935 - 1.0 --> (abs) 0.279065012932*
+INFO:root:[TEST] p vs y: 0.270134 - 0.0 --> (abs) 0.270133554935*
+INFO:root:[TEST] p vs y: 0.752148 - 1.0 --> (abs) 0.247851729393*
+INFO:root:[TEST] p vs y: 0.00717674 - 0.0 --> (abs) 0.00717674335465*
+INFO:root:[TEST] p vs y: 0.128568 - 0.0 --> (abs) 0.128567606211*
+INFO:root:[TEST] p vs y: 0.878641 - 1.0 --> (abs) 0.121358692646*
+INFO:root:[TEST] p vs y: 0.00491294 - 0.0 --> (abs) 0.00491293706*
+INFO:root:[TEST] p vs y: 0.956296 - 1.0 --> (abs) 0.0437035560608*
+INFO:root:[TEST] p vs y: 0.0864406 - 0.0 --> (abs) 0.0864406228065*
+INFO:root:[TEST] p vs y: 0.961008 - 1.0 --> (abs) 0.0389922857285*
+INFO:root:[TEST] p vs y: 0.0412248 - 0.0 --> (abs) 0.0412248410285*
+INFO:root:[TEST] p vs y: 0.925253 - 1.0 --> (abs) 0.074746966362*
+INFO:root:[TEST] p vs y: 0.0477875 - 0.0 --> (abs) 0.0477875210345*
+INFO:root:[TEST] p vs y: 0.945138 - 1.0 --> (abs) 0.0548622012138*
+INFO:root:[TEST] p vs y: 0.122295 - 0.0 --> (abs) 0.122295200825*
+INFO:root:[TEST] p vs y: 0.905705 - 1.0 --> (abs) 0.0942950248718*
+INFO:root:[TEST] p vs y: 0.0661357 - 0.0 --> (abs) 0.0661357492208*
+INFO:root:[TEST] p vs y: 0.935177 - 1.0 --> (abs) 0.0648226737976*
+INFO:root:[TEST] p vs y: 0.0444895 - 0.0 --> (abs) 0.0444895289838*
+INFO:root:[TEST] p vs y: 0.958856 - 1.0 --> (abs) 0.0411440730095*
+INFO:root:[TEST] p vs y: 0.00418479 - 0.0 --> (abs) 0.00418479274958*
+INFO:root:[TEST] p vs y: 0.131055 - 0.0 --> (abs) 0.13105532527*
+INFO:root:[TEST] p vs y: 0.945624 - 1.0 --> (abs) 0.0543758273125*
+INFO:root:[TEST] p vs y: 0.0127393 - 0.0 --> (abs) 0.0127393053845*
+INFO:root:[TEST] p vs y: 0.932843 - 1.0 --> (abs) 0.0671570897102*
+INFO:root:[TEST] p vs y: 0.133294 - 0.0 --> (abs) 0.13329398632*
+INFO:root:[TEST] p vs y: 0.786031 - 1.0 --> (abs) 0.213968753815*
+INFO:root:[TEST] p vs y: 0.0439595 - 0.0 --> (abs) 0.0439595207572*
+INFO:root:[TEST] p vs y: 0.0395475 - 0.0 --> (abs) 0.0395475253463*
+INFO:root:[TEST] p vs y: 0.86879 - 1.0 --> (abs) 0.131210148335*
+INFO:root:[TEST] p vs y: 0.112025 - 0.0 --> (abs) 0.11202480644*
+INFO:root:[TEST] p vs y: 0.950598 - 1.0 --> (abs) 0.0494024157524*
+INFO:root:[TEST] p vs y: 0.0486096 - 0.0 --> (abs) 0.0486095547676*
+INFO:root:[TEST] p vs y: 0.975909 - 1.0 --> (abs) 0.0240907669067*
+INFO:root:[TEST] p vs y: 0.107255 - 0.0 --> (abs) 0.107254981995*
+INFO:root:[TEST] p vs y: 0.946861 - 1.0 --> (abs) 0.053139090538*
+INFO:root:[TEST] p vs y: 0.0749454 - 0.0 --> (abs) 0.0749454349279*
+INFO:root:[TEST] p vs y: 0.926062 - 1.0 --> (abs) 0.073938190937*
+INFO:root:[TEST] p vs y: 0.125728 - 0.0 --> (abs) 0.125728130341*
+INFO:root:[TEST] p vs y: 0.946989 - 1.0 --> (abs) 0.053011059761*
+INFO:root:[TEST] Correct: 49 vs. Wrong: 1
+INFO:root:[TEST] Accuracy: 0.98
+INFO:root:test_the_thing - Elapsed: 0:00:00.820860
+INFO:root:[SAVE_MODEL] Saving model to /home/mathias/Projects/jupyter_notebooks/motion_data/models/model_gru_2.h5 ...
+INFO:root:[SAVE_MODEL] Model saved.
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2117
+INFO:root:Validation points: 2117
+INFO:root:Train points: 26009
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2117
+INFO:root:Validation points: 2117
+INFO:root:Train points: 26009
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.324176
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.015911
+INFO:root:collect_data - Elapsed: 0:00:00.019170
+INFO:root:Train data size: 26010
+INFO:root:Test data size: 2121
+INFO:root:Validation data size: 3
+INFO:root:After: Generated: 6720, Motion capture: 3077
+INFO:root:Done!
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2117
+INFO:root:Validation points: 2117
+INFO:root:Train points: 26009
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.316050
+INFO:root:collect_data - Elapsed: 0:00:00.015484
+INFO:root:collect_data - Elapsed: 0:00:00.017471
+INFO:root:Train data size: 26013
+INFO:root:Test data size: 2123
+INFO:root:Validation data size: 2123
+INFO:root:After: Generated: 6728, Motion capture: 3063
+INFO:root:Done!
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2117
+INFO:root:Validation points: 2117
+INFO:root:Train points: 26009
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.404792
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.016428
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.018488
+INFO:root:Train data size: 26010
+INFO:root:Test data size: 2120
+INFO:root:Validation data size: 2119
+INFO:root:After: Generated: 6735, Motion capture: 3065
+INFO:root:Done!
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2117
+INFO:root:Validation points: 2117
+INFO:root:Train points: 26009
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+INFO:root:collect_data - Elapsed: 0:00:00.328023
+INFO:root:collect_data - Elapsed: 0:00:00.016490
+INFO:root:collect_data - Elapsed: 0:00:00.018606
+INFO:root:Train data size: 26015
+INFO:root:Test data size: 2123
+INFO:root:Validation data size: 2123
+INFO:root:After: Generated: 6730, Motion capture: 3062
+INFO:root:Done!
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2117
+INFO:root:Validation points: 2117
+INFO:root:Train points: 26009
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+INFO:root:collect_data - Elapsed: 0:00:00.385408
+INFO:root:collect_data - Elapsed: 0:00:00.019397
+INFO:root:collect_data - Elapsed: 0:00:00.020910
+INFO:root:Train data size: 26015
+INFO:root:Test data size: 2123
+INFO:root:Validation data size: 2123
+INFO:root:After: Generated: 6720, Motion capture: 3072
+INFO:root:Done!
+INFO:root:run - Elapsed: 0:00:01.794384
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2234
+INFO:root:Validation points: 2234
+INFO:root:Train points: 27455
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.465216
+INFO:root:collect_data - Elapsed: 0:00:00.027241
+INFO:root:collect_data - Elapsed: 0:00:00.020188
+INFO:root:Train data size: 27463
+INFO:root:Test data size: 2244
+INFO:root:Validation data size: 2244
+INFO:root:After: Generated: 5950, Motion capture: 2305
+INFO:root:Done!
+INFO:root:run - Elapsed: 0:00:01.778798
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2234
+INFO:root:Validation points: 2234
+INFO:root:Train points: 27455
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.332749
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.019313
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.014288
+INFO:root:Train data size: 27465
+INFO:root:Test data size: 2239
+INFO:root:Validation data size: 2236
+INFO:root:After: Generated: 5969, Motion capture: 2293
+INFO:root:Saving: trainx2.csv
+INFO:root:Data size: 27465 x 9
+INFO:root:Successfully written 27465 lines to: /home/mathias/PycharmProjects/MotionClassifier/dataset/trainx2.csv
+INFO:root:save_data - Elapsed: 0:00:00.214586
+INFO:root:Saving: testx2.csv
+INFO:root:Data size: 2239 x 9
+INFO:root:Successfully written 2239 lines to: /home/mathias/PycharmProjects/MotionClassifier/dataset/testx2.csv
+INFO:root:save_data - Elapsed: 0:00:00.018198
+INFO:root:Saving: validationx2.csv
+INFO:root:Data size: 2236 x 9
+INFO:root:Successfully written 2236 lines to: /home/mathias/PycharmProjects/MotionClassifier/dataset/validationx2.csv
+INFO:root:save_data - Elapsed: 0:00:00.018726
+INFO:root:Done!
+INFO:root:run - Elapsed: 0:00:01.884475
+INFO:root:(20500, 8)
+INFO:root:(16802, 42)
+INFO:root:Test points: 2234
+INFO:root:Validation points: 2234
+INFO:root:Train points: 27455
+INFO:root:Before: Generated: 20500, Motion capture: 16802
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.346281
+INFO:root:collect_data - Elapsed: 0:00:00.021799
+ERROR:root:Reached end of source.
+INFO:root:collect_data - Elapsed: 0:00:00.016838
+INFO:root:Train data size: 27466
+INFO:root:Test data size: 2244
+INFO:root:Validation data size: 2241
+INFO:root:After: Generated: 5944, Motion capture: 2309
+INFO:root:Saving: trainx2.csv
+INFO:root:Data size: 27466 x 9
+INFO:root:Successfully written 27466 lines to: /home/mathias/PycharmProjects/MotionClassifier/dataset/trainx2.csv
+INFO:root:save_data - Elapsed: 0:00:00.233318
+INFO:root:Saving: testx2.csv
+INFO:root:Data size: 2244 x 9
+INFO:root:Successfully written 2244 lines to: /home/mathias/PycharmProjects/MotionClassifier/dataset/testx2.csv
+INFO:root:save_data - Elapsed: 0:00:00.020611
+INFO:root:Saving: validationx2.csv
+INFO:root:Data size: 2241 x 9
+INFO:root:Successfully written 2241 lines to: /home/mathias/PycharmProjects/MotionClassifier/dataset/validationx2.csv
+INFO:root:save_data - Elapsed: 0:00:00.023747
+INFO:root:Done!
+INFO:root:run - Elapsed: 0:00:01.995345

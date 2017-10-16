@@ -1,0 +1,4 @@
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/trainx.csv, data: (2297, 10, 8) - target: (2297, 10, 1)
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/validationx.csv, data: (181, 10, 8) - target: (181, 10, 1)
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/trainx.csv, data: (2297, 10, 8) - target: (2297, 10, 1)
+INFO:root:[GET DATA] file: /home/mathias/Projects/motion_data/validationx.csv, data: (181, 10, 8) - target: (181, 10, 1)
