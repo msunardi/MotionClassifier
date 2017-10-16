@@ -2,6 +2,7 @@ from __future__ import print_function
 from keras.models import Sequential
 from keras.layers import LSTM, Dense, GRU, Dropout, SimpleRNN
 from keras.models import load_model
+from keras.callbacks import *
 import numpy as np
 import csv
 import random as r
@@ -9,8 +10,23 @@ from util import elapsed
 import logging
 import json
 
-logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_16.log', level=logging.DEBUG)
+import os
 
+if os.name == 'nt':
+    logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
+                        level=logging.DEBUG)
+else:
+    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_17.log', level=logging.DEBUG)
+
+
+tb = TensorBoard(log_dir='logs/', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False,
+                 write_images=False, embeddings_freq=0, embeddings_layer_names=None,
+                 embeddings_metadata=None)
+
+reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
+                              patience=5, min_lr=0.001)
+
+csv_logger = CSVLogger('logs/training.log')
 
 def get_the_fing_data(filepath):
     log_msg = "[GET DATA] "
@@ -107,7 +123,7 @@ def retrain_model(x_train, y_train, x_val, y_val, epochs, model=None, model_sour
 
     model0.fit(x_retrain, y_retrain,
                batch_size=batch_size, epochs=epochs, shuffle=True,
-               validation_data=(x_reval, y_reval))
+               validation_data=(x_reval, y_reval), callbacks=[tb, reduce_lr, csv_logger])
 
     logging.info(model0.summary())
     return model0
@@ -178,9 +194,11 @@ def do_the_thing(train_data, train_target, validation_data, validation_target, d
     logging.info(log_msg + str(x_train.shape))
     logging.info(log_msg + str(y_train.shape))
 
+
+
     modelx.fit(x_train, y_train,
                batch_size=batch_size, epochs=epochs, shuffle=True,
-               validation_data=(x_val, y_val))
+               validation_data=(x_val, y_val), callbacks=[tb, reduce_lr, csv_logger])
 
     modelx.summary()
     logging.info(json.dumps(modelx.to_json()))

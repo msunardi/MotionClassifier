@@ -1,0 +1,78 @@
+INFO:root:[GET DATA] file: /Users/Mathias/Documents/GitHub/MotionClassifier/dataset/trainx3.csv, data: (2391, 10, 8) - target: (2391, 10, 2)
+INFO:root:[GET DATA] file: /Users/Mathias/Documents/GitHub/MotionClassifier/dataset/validationx3.csv, data: (187, 10, 8) - target: (187, 10, 2)
+INFO:root:[DO THE THING] (2340, 10, 8)
+INFO:root:[DO THE THING] (2340, 10, 2)
+INFO:root:[GET DATA] file: /Users/Mathias/Documents/GitHub/MotionClassifier/dataset/trainx3.csv, data: (2391, 10, 8) - target: (2391, 10, 2)
+INFO:root:[GET DATA] file: /Users/Mathias/Documents/GitHub/MotionClassifier/dataset/validationx3.csv, data: (187, 10, 8) - target: (187, 10, 2)
+INFO:root:[DO THE THING] (2340, 10, 8)
+INFO:root:[DO THE THING] (2340, 10, 2)
+INFO:root:"{\"class_name\": \"Sequential\", \"config\": [{\"class_name\": \"GRU\", \"config\": {\"use_bias\": true, \"kernel_regularizer\": null, \"unroll\": false, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\", \"distribution\": \"uniform\"}}, \"recurrent_activation\": \"hard_sigmoid\", \"batch_input_shape\": [60, 10, 8], \"return_state\": false, \"stateful\": false, \"dtype\": \"float32\", \"activation\": \"tanh\", \"dropout\": 0.0, \"activity_regularizer\": null, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"gain\": 1.0, \"seed\": null}}, \"recurrent_dropout\": 0.0, \"bias_constraint\": null, \"units\": 1024, \"kernel_constraint\": null, \"return_sequences\": true, \"implementation\": 0, \"recurrent_regularizer\": null, \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"name\": \"gru_1\", \"trainable\": true, \"recurrent_constraint\": null, \"go_backwards\": false, \"bias_regularizer\": null}}, {\"class_name\": \"GRU\", \"config\": {\"use_bias\": true, \"kernel_regularizer\": null, \"unroll\": false, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\", \"distribution\": \"uniform\"}}, \"recurrent_activation\": \"hard_sigmoid\", \"activity_regularizer\": null, \"stateful\": true, \"activation\": \"tanh\", \"dropout\": 0.0, \"return_state\": false, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"gain\": 1.0, \"seed\": null}}, \"recurrent_dropout\": 0.0, \"bias_constraint\": null, \"units\": 1024, \"kernel_constraint\": null, \"return_sequences\": true, \"implementation\": 0, \"recurrent_regularizer\": null, \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"name\": \"gru_2\", \"trainable\": true, \"recurrent_constraint\": null, \"go_backwards\": false, \"bias_regularizer\": null}}, {\"class_name\": \"GRU\", \"config\": {\"use_bias\": true, \"kernel_regularizer\": null, \"unroll\": false, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\", \"distribution\": \"uniform\"}}, \"recurrent_activation\": \"hard_sigmoid\", \"activity_regularizer\": null, \"stateful\": true, \"activation\": \"tanh\", \"dropout\": 0.0, \"return_state\": false, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"gain\": 1.0, \"seed\": null}}, \"recurrent_dropout\": 0.0, \"bias_constraint\": null, \"units\": 1024, \"kernel_constraint\": null, \"return_sequences\": true, \"implementation\": 0, \"recurrent_regularizer\": null, \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"name\": \"gru_3\", \"trainable\": true, \"recurrent_constraint\": null, \"go_backwards\": false, \"bias_regularizer\": null}}, {\"class_name\": \"Dropout\", \"config\": {\"name\": \"dropout_1\", \"rate\": 0.2, \"trainable\": true}}, {\"class_name\": \"Dense\", \"config\": {\"bias_constraint\": null, \"use_bias\": true, \"kernel_constraint\": null, \"kernel_regularizer\": null, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\", \"distribution\": \"uniform\"}}, \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"activity_regularizer\": null, \"name\": \"dense_1\", \"trainable\": true, \"activation\": \"softmax\", \"units\": 2, \"bias_regularizer\": null}}], \"backend\": \"tensorflow\", \"keras_version\": \"2.0.8\"}"
+INFO:root:[GET DATA] file: /Users/Mathias/Documents/GitHub/MotionClassifier/dataset/testx3.csv, data: (192, 10, 8) - target: (192, 10, 2)
+INFO:root:[TEST] p vs y: [ 0.31668705  0.68331289] - [ 0.  1.] --> (abs) 0.316687077284
+INFO:root:[TEST] p vs y: [ 0.78265435  0.21734567] - [ 1.  0.] --> (abs) 0.217345662415*
+INFO:root:[TEST] p vs y: [ 0.10896128  0.89103872] - [ 0.  1.] --> (abs) 0.108961284161*
+INFO:root:[TEST] p vs y: [ 0.86289549  0.13710448] - [ 1.  0.] --> (abs) 0.13710449636*
+INFO:root:[TEST] p vs y: [ 0.24448511  0.75551492] - [ 0.  1.] --> (abs) 0.244485095143*
+INFO:root:[TEST] p vs y: [ 0.82456714  0.17543289] - [ 1.  0.] --> (abs) 0.175432875752*
+INFO:root:[TEST] p vs y: [ 0.40383306  0.59616697] - [ 0.  1.] --> (abs) 0.403833046556
+INFO:root:[TEST] p vs y: [ 0.89835072  0.10164926] - [ 1.  0.] --> (abs) 0.101649273187*
+INFO:root:[TEST] p vs y: [ 0.43743426  0.56256574] - [ 0.  1.] --> (abs) 0.437434256077
+INFO:root:[TEST] p vs y: [ 0.90440571  0.09559432] - [ 1.  0.] --> (abs) 0.0955943018198*
+INFO:root:[TEST] p vs y: [ 0.42784396  0.57215607] - [ 0.  1.] --> (abs) 0.427843943238
+INFO:root:[TEST] p vs y: [ 0.96246052  0.03753943] - [ 1.  0.] --> (abs) 0.0375394560397*
+INFO:root:[TEST] p vs y: [ 0.07177158  0.92822838] - [ 0.  1.] --> (abs) 0.0717716030777*
+INFO:root:[TEST] p vs y: [ 0.93818206  0.06181796] - [ 1.  0.] --> (abs) 0.0618179533631*
+INFO:root:[TEST] p vs y: [ 0.72443545  0.27556458] - [ 0.  1.] --> (abs) 0.724435433745
+INFO:root:[TEST] p vs y: [ 0.88308227  0.11691771] - [ 1.  0.] --> (abs) 0.116917721927*
+INFO:root:[TEST] p vs y: [ 0.30527946  0.69472057] - [ 0.  1.] --> (abs) 0.305279448628
+INFO:root:[TEST] p vs y: [ 0.96912307  0.03087689] - [ 1.  0.] --> (abs) 0.030876910314*
+INFO:root:[TEST] p vs y: [ 0.21913736  0.78086269] - [ 0.  1.] --> (abs) 0.219137333333*
+INFO:root:[TEST] p vs y: [ 0.9437626  0.0562375] - [ 1.  0.] --> (abs) 0.0562374480069*
+INFO:root:[TEST] p vs y: [ 0.98658383  0.01341619] - [ 1.  0.] --> (abs) 0.0134161794558*
+INFO:root:[TEST] p vs y: [ 0.10991134  0.89008868] - [ 0.  1.] --> (abs) 0.10991133377*
+INFO:root:[TEST] p vs y: [ 0.91103095  0.08896899] - [ 1.  0.] --> (abs) 0.0889690220356*
+INFO:root:[TEST] p vs y: [ 0.05596114  0.94403887] - [ 0.  1.] --> (abs) 0.0559611357749*
+INFO:root:[TEST] p vs y: [ 0.82223797  0.17776212] - [ 1.  0.] --> (abs) 0.177762076259*
+INFO:root:[TEST] p vs y: [ 0.12609237  0.87390769] - [ 0.  1.] --> (abs) 0.126092344522*
+INFO:root:[TEST] p vs y: [ 0.65352499  0.34647498] - [ 1.  0.] --> (abs) 0.346474990249
+INFO:root:[TEST] p vs y: [ 0.06162385  0.93837625] - [ 0.  1.] --> (abs) 0.0616238005459*
+INFO:root:[TEST] p vs y: [ 0.88626593  0.11373408] - [ 1.  0.] --> (abs) 0.113734073937*
+INFO:root:[TEST] p vs y: [ 0.04584874  0.95415115] - [ 0.  1.] --> (abs) 0.0458487924188*
+INFO:root:[TEST] p vs y: [ 0.83942258  0.16057736] - [ 1.  0.] --> (abs) 0.160577386618*
+INFO:root:[TEST] p vs y: [ 0.1229185   0.87708151] - [ 0.  1.] --> (abs) 0.122918494046*
+INFO:root:[TEST] p vs y: [ 0.98822987  0.01177013] - [ 1.  0.] --> (abs) 0.0117701306008*
+INFO:root:[TEST] p vs y: [ 0.13859165  0.86140835] - [ 0.  1.] --> (abs) 0.138591647148*
+INFO:root:[TEST] p vs y: [ 0.95691651  0.04308348] - [ 1.  0.] --> (abs) 0.0430834852159*
+INFO:root:[TEST] p vs y: [ 0.76998925  0.23001079] - [ 1.  0.] --> (abs) 0.230010770261*
+INFO:root:[TEST] p vs y: [ 0.34528324  0.65471685] - [ 0.  1.] --> (abs) 0.345283195376
+INFO:root:[TEST] p vs y: [ 0.78932893  0.21067107] - [ 1.  0.] --> (abs) 0.210671067238*
+INFO:root:[TEST] p vs y: [ 0.27956545  0.72043455] - [ 0.  1.] --> (abs) 0.279565453529*
+INFO:root:[TEST] p vs y: [ 0.994232    0.00576807] - [ 1.  0.] --> (abs) 0.00576803507283*
+INFO:root:[TEST] p vs y: [ 0.26230565  0.73769432] - [ 0.  1.] --> (abs) 0.262305662036*
+INFO:root:[TEST] p vs y: [ 0.91097105  0.08902898] - [ 1.  0.] --> (abs) 0.0890289656818*
+INFO:root:[TEST] p vs y: [ 0.10429905  0.89570093] - [ 0.  1.] --> (abs) 0.104299061*
+INFO:root:[TEST] p vs y: [ 0.97928047  0.02071956] - [ 1.  0.] --> (abs) 0.0207195458934*
+INFO:root:[TEST] p vs y: [ 0.56462109  0.43537897] - [ 0.  1.] --> (abs) 0.564621061087
+INFO:root:[TEST] p vs y: [ 0.84425133  0.15574867] - [ 1.  0.] --> (abs) 0.155748665333*
+INFO:root:[TEST] p vs y: [ 0.60973483  0.39026517] - [ 0.  1.] --> (abs) 0.609734833241
+INFO:root:[TEST] p vs y: [ 0.99738312  0.00261682] - [ 1.  0.] --> (abs) 0.00261685298756*
+INFO:root:[TEST] p vs y: [ 0.24951831  0.75048167] - [ 0.  1.] --> (abs) 0.249518319964*
+INFO:root:[TEST] p vs y: [ 0.81436157  0.18563852] - [ 1.  0.] --> (abs) 0.185638472438*
+INFO:root:[TEST] p vs y: [ 0.43324175  0.56675828] - [ 0.  1.] --> (abs) 0.433241739869
+INFO:root:[TEST] p vs y: [ 0.99445182  0.00554816] - [ 1.  0.] --> (abs) 0.00554817100056*
+INFO:root:[TEST] p vs y: [ 0.20817859  0.79182136] - [ 0.  1.] --> (abs) 0.20817861706*
+INFO:root:[TEST] p vs y: [ 0.76160437  0.23839562] - [ 1.  0.] --> (abs) 0.238395623863*
+INFO:root:[TEST] p vs y: [ 0.13110611  0.86889392] - [ 0.  1.] --> (abs) 0.131106093526*
+INFO:root:[TEST] p vs y: [ 0.85283029  0.14716962] - [ 1.  0.] --> (abs) 0.147169664502*
+INFO:root:[TEST] p vs y: [ 0.2523652   0.74763483] - [ 0.  1.] --> (abs) 0.25236518681*
+INFO:root:[TEST] p vs y: [ 0.8254385   0.17456144] - [ 1.  0.] --> (abs) 0.174561470747*
+INFO:root:[TEST] p vs y: [ 0.13257167  0.8674283 ] - [ 0.  1.] --> (abs) 0.132571682334*
+INFO:root:[TEST] p vs y: [ 0.8841387   0.11586137] - [ 1.  0.] --> (abs) 0.115861333907*
+INFO:root:[TEST] Correct: 49 vs. Wrong: 11
+INFO:root:[TEST] Accuracy: 0.8167 (81.67%)
+INFO:root:[TEST_THE_THING] - Elapsed: 0:00:00.977736
+INFO:root:[RUN] - Elapsed: 0:35:35.988632
+INFO:root:[GET DATA] file: /Users/Mathias/Documents/GitHub/MotionClassifier/dataset/trainx3.csv, data: (2391, 10, 8) - target: (2391, 10, 2)
+INFO:root:[GET DATA] file: /Users/Mathias/Documents/GitHub/MotionClassifier/dataset/validationx3.csv, data: (187, 10, 8) - target: (187, 10, 2)
+INFO:root:[DO THE THING] (2340, 10, 8)
+INFO:root:[DO THE THING] (2340, 10, 2)

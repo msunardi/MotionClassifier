@@ -8,9 +8,8 @@ seq_length, data_dim,   batch_size, hidden_size,    epochs, hidden_layers,  num_
 10,         8,          60,         512,            20,     4,              1,              sigmoid,        yes,        2,          _gru_7, _10
 10,         8,          60,         512,            20,     4,              1,              sigmoid,        yes,        2,          _gru_8, _11
 10,         8,          60,         512,            1,      2,              2 (softmax),    softmax,        yes,        No,         _gru_9, _12
-10,         8,          60,         512,            30,     2,              2 (softmax),    softmax,        yes,        No,         _gru_10,_13
-10,         8,          60,         512,            30,     3,              2 (softmax),    softmax,        yes,        2,          _gru_11,_14  pre-shuffle training & validation data
-10,         8,          60,         512,            30,     3,              2 (softmax),    softmax,        yes,        3,          _gru_12,_15  pre-shuffle training & validation data
-10,         8,          60,         512,            30,     3,              2 (softmax),    softmax,        yes,        3,          _gru_13,_16  pre-shuffle training & validation data
-
-
+10,         8,          60,         512,            20,     2,              2 (softmax),    softmax,        yes,        No,         _gru_10,_13
+10,         8,          60,         512,            20,     3,              2 (softmax),    softmax,        yes,        2,          _gru_11,_14  pre-shuffle training & validation data
+10,         8,          60,         512,            20,     3,              2 (softmax),    softmax,        yes,        3,          _gru_12,_15  pre-shuffle training & validation data
+10,         8,          60,         512,            20,     3,              2 (softmax),    softmax,        yes,        3,          _gru_13,_16  pre-shuffle training & validation data
+10,         8,          60,         512,            20,     3,              2 (softmax),    softmax,        yes,        4,          _gru_14,_17  pre-shuffle training & validation data

@@ -3,8 +3,11 @@ import time
 from datetime import timedelta
 import logging
 
-# logging.basicConfig(filename='/home/mathias/Projects/jupyter_notebooks/motion_data/models/classifier_1.log', level=logging.DEBUG)
-logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_16.log', level=logging.DEBUG)
+if os.name == 'nt':
+    logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
+                        level=logging.DEBUG)
+else:
+    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_17.log', level=logging.DEBUG)
 
 
 def elapsed(func):
