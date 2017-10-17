@@ -1,0 +1,2 @@
+seq_length, data_dim,   batch_size, hid_size,   epochs, hid_layers, num_classes,    output,     dropout,  retrain,  Model,  Log,    training.log,   Note
+10,         8,          60,         1024,        80,     3,          2 (softmax),    softmax,    yes,     1x,       _gru_15,_18,    training0,      pre-shuffle training & validation data, use csvlogger & tensorboard

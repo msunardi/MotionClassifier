@@ -16,17 +16,17 @@ if os.name == 'nt':
     logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
                         level=logging.DEBUG)
 else:
-    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_17.log', level=logging.DEBUG)
+    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_19.log', level=logging.DEBUG)
 
 
-tb = TensorBoard(log_dir='logs/', histogram_freq=0, batch_size=32, write_graph=True, write_grads=False,
-                 write_images=False, embeddings_freq=0, embeddings_layer_names=None,
-                 embeddings_metadata=None)
+# tb = TensorBoard(log_dir='logs/', histogram_freq=0, write_graph=True,
+#                  write_images=False, embeddings_freq=0, embeddings_layer_names=None,
+#                  embeddings_metadata=None)
 
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
                               patience=5, min_lr=0.001)
 
-csv_logger = CSVLogger('logs/training.log')
+csv_logger = CSVLogger('logs/training0.log')
 
 def get_the_fing_data(filepath):
     log_msg = "[GET DATA] "
@@ -89,7 +89,7 @@ def shuffle(data, targets):
 
 
 @elapsed
-def retrain_model(x_train, y_train, x_val, y_val, epochs, model=None, model_source=None, batch_size=50):
+def retrain_model(i, x_train, y_train, x_val, y_val, epochs, model=None, model_source=None, batch_size=50):
     """
     Retrain a saved model
     :param x_train: training data
@@ -121,9 +121,13 @@ def retrain_model(x_train, y_train, x_val, y_val, epochs, model=None, model_sour
     x_reval = np.array(x_reval)[:val_size]
     y_reval = np.array(y_reval)[:val_size]
 
+    tbx = TensorBoard(log_dir='logs/retrain%s/' % i, histogram_freq=0, write_graph=True,
+                     write_images=False, embeddings_freq=0, embeddings_layer_names=None,
+                     embeddings_metadata=None)
+
     model0.fit(x_retrain, y_retrain,
                batch_size=batch_size, epochs=epochs, shuffle=True,
-               validation_data=(x_reval, y_reval), callbacks=[tb, reduce_lr, csv_logger])
+               validation_data=(x_reval, y_reval), callbacks=[tbx, reduce_lr, csv_logger])
 
     logging.info(model0.summary())
     return model0
@@ -194,7 +198,9 @@ def do_the_thing(train_data, train_target, validation_data, validation_target, d
     logging.info(log_msg + str(x_train.shape))
     logging.info(log_msg + str(y_train.shape))
 
-
+    tb = TensorBoard(log_dir='logs/run_gru_15/', histogram_freq=0, write_graph=True,
+                     write_images=False, embeddings_freq=0, embeddings_layer_names=None,
+                     embeddings_metadata=None)
 
     modelx.fit(x_train, y_train,
                batch_size=batch_size, epochs=epochs, shuffle=True,

@@ -480,3 +480,73 @@ INFO:root:[TEST] Correct: 54 vs. Wrong: 6
 INFO:root:[TEST] Accuracy: 0.9000 (90.00%)
 INFO:root:[TEST_THE_THING] - Elapsed: 0:00:00.954052
 INFO:root:[RUN] - Elapsed: 2:23:53.516745
+INFO:root:[GET DATA] file: /home/mathias/PycharmProjects/MotionClassifier/dataset/trainx3.csv, data: (2391, 10, 8) - target: (2391, 10, 2)
+INFO:root:[GET DATA] file: /home/mathias/PycharmProjects/MotionClassifier/dataset/validationx3.csv, data: (187, 10, 8) - target: (187, 10, 2)
+INFO:root:[DO THE THING] (2340, 10, 8)
+INFO:root:[DO THE THING] (2340, 10, 2)
+INFO:root:"{\"class_name\": \"Sequential\", \"keras_version\": \"2.0.4\", \"config\": [{\"class_name\": \"GRU\", \"config\": {\"recurrent_activation\": \"hard_sigmoid\", \"dtype\": \"float32\", \"trainable\": true, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"seed\": null, \"gain\": 1.0}}, \"use_bias\": true, \"bias_regularizer\": null, \"implementation\": 0, \"unroll\": false, \"activation\": \"tanh\", \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1024, \"batch_input_shape\": [60, 10, 8], \"activity_regularizer\": null, \"recurrent_dropout\": 0.0, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"kernel_constraint\": null, \"dropout\": 0.0, \"stateful\": false, \"recurrent_regularizer\": null, \"name\": \"gru_1\", \"bias_constraint\": null, \"go_backwards\": false, \"kernel_regularizer\": null, \"return_sequences\": true, \"recurrent_constraint\": null}}, {\"class_name\": \"GRU\", \"config\": {\"recurrent_activation\": \"hard_sigmoid\", \"trainable\": true, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"seed\": null, \"gain\": 1.0}}, \"use_bias\": true, \"bias_regularizer\": null, \"implementation\": 0, \"unroll\": false, \"activation\": \"tanh\", \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1024, \"activity_regularizer\": null, \"recurrent_dropout\": 0.0, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"kernel_constraint\": null, \"dropout\": 0.0, \"stateful\": true, \"recurrent_regularizer\": null, \"name\": \"gru_2\", \"bias_constraint\": null, \"go_backwards\": false, \"kernel_regularizer\": null, \"return_sequences\": true, \"recurrent_constraint\": null}}, {\"class_name\": \"GRU\", \"config\": {\"recurrent_activation\": \"hard_sigmoid\", \"trainable\": true, \"recurrent_initializer\": {\"class_name\": \"Orthogonal\", \"config\": {\"seed\": null, \"gain\": 1.0}}, \"use_bias\": true, \"bias_regularizer\": null, \"implementation\": 0, \"unroll\": false, \"activation\": \"tanh\", \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 1024, \"activity_regularizer\": null, \"recurrent_dropout\": 0.0, \"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"kernel_constraint\": null, \"dropout\": 0.0, \"stateful\": true, \"recurrent_regularizer\": null, \"name\": \"gru_3\", \"bias_constraint\": null, \"go_backwards\": false, \"kernel_regularizer\": null, \"return_sequences\": true, \"recurrent_constraint\": null}}, {\"class_name\": \"Dropout\", \"config\": {\"rate\": 0.2, \"trainable\": true, \"name\": \"dropout_1\"}}, {\"class_name\": \"Dense\", \"config\": {\"kernel_initializer\": {\"class_name\": \"VarianceScaling\", \"config\": {\"distribution\": \"uniform\", \"scale\": 1.0, \"seed\": null, \"mode\": \"fan_avg\"}}, \"name\": \"dense_1\", \"kernel_constraint\": null, \"bias_regularizer\": null, \"bias_constraint\": null, \"activation\": \"softmax\", \"trainable\": true, \"kernel_regularizer\": null, \"bias_initializer\": {\"class_name\": \"Zeros\", \"config\": {}}, \"units\": 2, \"use_bias\": true, \"activity_regularizer\": null}}], \"backend\": \"tensorflow\"}"
+INFO:root:[GET DATA] file: /home/mathias/PycharmProjects/MotionClassifier/dataset/testx3.csv, data: (192, 10, 8) - target: (192, 10, 2)
+INFO:root:[TEST] p vs y: [ 0.28064924  0.7193507 ] - [ 0.  1.] --> (abs) 0.280649274588*
+INFO:root:[TEST] p vs y: [ 0.86235839  0.1376417 ] - [ 1.  0.] --> (abs) 0.137641653419*
+INFO:root:[TEST] p vs y: [ 0.18625467  0.81374532] - [ 0.  1.] --> (abs) 0.186254672706*
+INFO:root:[TEST] p vs y: [ 0.7829113   0.21708874] - [ 1.  0.] --> (abs) 0.217088721693*
+INFO:root:[TEST] p vs y: [ 0.25884596  0.74115407] - [ 0.  1.] --> (abs) 0.258845940232*
+INFO:root:[TEST] p vs y: [ 0.58947867  0.41052136] - [ 1.  0.] --> (abs) 0.41052134335
+INFO:root:[TEST] p vs y: [ 0.57977194  0.42022809] - [ 0.  1.] --> (abs) 0.579771921039
+INFO:root:[TEST] p vs y: [ 0.89080811  0.10919188] - [ 1.  0.] --> (abs) 0.109191887081*
+INFO:root:[TEST] p vs y: [ 0.25493342  0.74506658] - [ 0.  1.] --> (abs) 0.254933416843*
+INFO:root:[TEST] p vs y: [ 0.72666657  0.27333349] - [ 1.  0.] --> (abs) 0.273333460093*
+INFO:root:[TEST] p vs y: [ 0.49095973  0.50904024] - [ 0.  1.] --> (abs) 0.490959748626
+INFO:root:[TEST] p vs y: [ 0.8041048   0.19589512] - [ 1.  0.] --> (abs) 0.195895157754*
+INFO:root:[TEST] p vs y: [ 0.13829888  0.86170113] - [ 0.  1.] --> (abs) 0.138298876584*
+INFO:root:[TEST] p vs y: [ 0.99438679  0.00561322] - [ 1.  0.] --> (abs) 0.00561321293935*
+INFO:root:[TEST] p vs y: [ 0.90367365  0.09632626] - [ 0.  1.] --> (abs) 0.903673693538
+INFO:root:[TEST] p vs y: [ 0.88870555  0.11129451] - [ 1.  0.] --> (abs) 0.111294478178*
+INFO:root:[TEST] p vs y: [ 0.20522675  0.79477322] - [ 0.  1.] --> (abs) 0.205226764083*
+INFO:root:[TEST] p vs y: [ 0.99489462  0.00510537] - [ 1.  0.] --> (abs) 0.00510537368245*
+INFO:root:[TEST] p vs y: [ 0.18986818  0.81013185] - [ 0.  1.] --> (abs) 0.189868167043*
+INFO:root:[TEST] p vs y: [ 0.8522042   0.14779575] - [ 1.  0.] --> (abs) 0.147795774043*
+INFO:root:[TEST] p vs y: [ 0.99508953  0.00491047] - [ 1.  0.] --> (abs) 0.00491046928801*
+INFO:root:[TEST] p vs y: [ 0.20631433  0.79368567] - [ 0.  1.] --> (abs) 0.206314325333*
+INFO:root:[TEST] p vs y: [ 0.79534703  0.20465294] - [ 1.  0.] --> (abs) 0.204652950168*
+INFO:root:[TEST] p vs y: [ 0.18101792  0.81898212] - [ 0.  1.] --> (abs) 0.181017898023*
+INFO:root:[TEST] p vs y: [ 0.83722466  0.16277531] - [ 1.  0.] --> (abs) 0.162775322795*
+INFO:root:[TEST] p vs y: [ 0.26521695  0.73478311] - [ 0.  1.] --> (abs) 0.2652169168*
+INFO:root:[TEST] p vs y: [ 0.59961843  0.40038162] - [ 1.  0.] --> (abs) 0.400381594896
+INFO:root:[TEST] p vs y: [ 0.22373469  0.77626526] - [ 0.  1.] --> (abs) 0.223734714091*
+INFO:root:[TEST] p vs y: [ 0.86172104  0.13827889] - [ 1.  0.] --> (abs) 0.138278923929*
+INFO:root:[TEST] p vs y: [ 0.15257062  0.84742945] - [ 0.  1.] --> (abs) 0.152570582926*
+INFO:root:[TEST] p vs y: [ 0.71541005  0.28458995] - [ 1.  0.] --> (abs) 0.28458994627*
+INFO:root:[TEST] p vs y: [ 0.15200178  0.84799826] - [ 0.  1.] --> (abs) 0.1520017609*
+INFO:root:[TEST] p vs y: [ 0.95302057  0.04697955] - [ 1.  0.] --> (abs) 0.0469794888049*
+INFO:root:[TEST] p vs y: [ 0.21608238  0.78391761] - [ 0.  1.] --> (abs) 0.216082386672*
+INFO:root:[TEST] p vs y: [ 0.81134337  0.18865658] - [ 1.  0.] --> (abs) 0.18865660578*
+INFO:root:[TEST] p vs y: [ 0.27645952  0.72354054] - [ 1.  0.] --> (abs) 0.723540514708
+INFO:root:[TEST] p vs y: [ 0.49132723  0.50867265] - [ 0.  1.] --> (abs) 0.491327285767
+INFO:root:[TEST] p vs y: [ 0.79915589  0.20084402] - [ 1.  0.] --> (abs) 0.200844064355*
+INFO:root:[TEST] p vs y: [ 0.17177066  0.82822931] - [ 0.  1.] --> (abs) 0.17177067697*
+INFO:root:[TEST] p vs y: [ 0.99315798  0.00684203] - [ 1.  0.] --> (abs) 0.0068420227617*
+INFO:root:[TEST] p vs y: [ 0.12039497  0.879605  ] - [ 0.  1.] --> (abs) 0.120394986123*
+INFO:root:[TEST] p vs y: [ 0.62618703  0.37381297] - [ 1.  0.] --> (abs) 0.373812973499
+INFO:root:[TEST] p vs y: [ 0.18429498  0.815705  ] - [ 0.  1.] --> (abs) 0.184294991195*
+INFO:root:[TEST] p vs y: [ 0.93130124  0.06869883] - [ 1.  0.] --> (abs) 0.068698797375*
+INFO:root:[TEST] p vs y: [ 0.55255508  0.44744486] - [ 0.  1.] --> (abs) 0.552555114031
+INFO:root:[TEST] p vs y: [ 0.88263905  0.11736099] - [ 1.  0.] --> (abs) 0.117360968143*
+INFO:root:[TEST] p vs y: [ 0.39369452  0.60630548] - [ 0.  1.] --> (abs) 0.393694519997
+INFO:root:[TEST] p vs y: [ 0.99423802  0.00576195] - [ 1.  0.] --> (abs) 0.00576196727343*
+INFO:root:[TEST] p vs y: [ 0.26551208  0.73448789] - [ 0.  1.] --> (abs) 0.265512093902*
+INFO:root:[TEST] p vs y: [ 0.87079829  0.12920171] - [ 1.  0.] --> (abs) 0.129201710224*
+INFO:root:[TEST] p vs y: [ 0.68016404  0.31983596] - [ 0.  1.] --> (abs) 0.680164039135
+INFO:root:[TEST] p vs y: [ 0.97939503  0.02060497] - [ 1.  0.] --> (abs) 0.0206049699336*
+INFO:root:[TEST] p vs y: [ 0.17044598  0.82955396] - [ 0.  1.] --> (abs) 0.170446008444*
+INFO:root:[TEST] p vs y: [ 0.82844925  0.17155066] - [ 1.  0.] --> (abs) 0.171550706029*
+INFO:root:[TEST] p vs y: [ 0.14072189  0.85927808] - [ 0.  1.] --> (abs) 0.140721902251*
+INFO:root:[TEST] p vs y: [ 0.68634689  0.31365302] - [ 1.  0.] --> (abs) 0.313653066754
+INFO:root:[TEST] p vs y: [ 0.17073898  0.82926112] - [ 0.  1.] --> (abs) 0.17073892802*
+INFO:root:[TEST] p vs y: [ 0.66049623  0.33950374] - [ 1.  0.] --> (abs) 0.339503750205
+INFO:root:[TEST] p vs y: [ 0.16066521  0.83933479] - [ 0.  1.] --> (abs) 0.160665214062*
+INFO:root:[TEST] p vs y: [ 0.90926665  0.09073336] - [ 1.  0.] --> (abs) 0.0907333567739*
+INFO:root:[TEST] Correct: 47 vs. Wrong: 13
+INFO:root:[TEST] Accuracy: 0.7833 (78.33%)
+INFO:root:[TEST_THE_THING] - Elapsed: 0:00:00.784600
+INFO:root:[RUN] - Elapsed: 0:28:12.977559
