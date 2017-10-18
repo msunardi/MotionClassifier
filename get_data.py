@@ -1,29 +1,58 @@
+"""
+Separating raw dataset into training, test, and validation sets
+"""
 from __future__ import print_function
-from dataset import *
+
 import logging
 import numpy as np
 from math import floor
-from util import elapsed
 
+from util import elapsed
+from dataset import *
+# from classifier import get_the_fing_data
 logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/dataset.log', level=logging.DEBUG)
+
 
 @elapsed
 def run():
-    print("Getting new data ...")
+    # get_newdata()
+    # get_derivative('synthetic.csv', save=True)
+    # get_the_fing_data('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic_derivative.csv')
+    new_dataset()
+
+@elapsed
+def get_newdata():
+    logging.info("Collecting raw data into datasets...")
+    # get_data(new_filename='synthetic.csv', path='/home/mathias/catkin_ws/src/motion_generator/src/csv/*.csv')
+    get_data(new_filename='mocap.csv', path='/home/mathias/Projects/Blender/dataset2/*.csv')
+
+@elapsed
+def new_dataset():
+    logging.info("Getting new datasets ...")
     # Pick the source/raw datasets
     # First derivatives
-    generated = np.genfromtxt('/home/mathias/catkin_ws/src/motion_generator/src/csv/combined_derivative.csv',
+    # generated = np.genfromtxt('/home/mathias/catkin_ws/src/motion_generator/src/csv/combined_derivative.csv',
+    #                           delimiter=',',
+    #                           skip_header=0,
+    #                           skip_footer=0)
+    # mocap = np.genfromtxt('/home/mathias/Projects/Blender/combined/combined_10_derivative.csv', delimiter=',',
+    #                       skip_header=0,
+    #                       skip_footer=0)
+
+    generated = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic_derivative.csv',
                               delimiter=',',
                               skip_header=0,
-                              skip_footer=0)
-    mocap = np.genfromtxt('/home/mathias/Projects/Blender/dataset2/combined_10_derivative.csv', delimiter=',',
+                              skip_footer=0, dtype=None)
+    mocap = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/mocap_derivative.csv',
+                          delimiter=',',
                           skip_header=0,
-                          skip_footer=0)
+                          skip_footer=0, dtype=None)
+
     # Second derivatives
-    generated = np.genfromtxt('/home/mathias/catkin_ws/src/motion_generator/src/csv/combined_derivative_derivative.csv',
-                              delimiter=',', skip_header=0, skip_footer=0)
-    mocap = np.genfromtxt('/home/mathias/Projects/Blender/dataset2/combined_10_derivative_derivative.csv',
-                          delimiter=',', skip_header=0, skip_footer=0)
+    # generated = np.genfromtxt('/home/mathias/catkin_ws/src/motion_generator/src/csv/combined_derivative_derivative.csv',
+    #                           delimiter=',', skip_header=0, skip_footer=0)
+    # mocap = np.genfromtxt('/home/mathias/Projects/Blender/dataset2/combined_10_derivative_derivative.csv',
+    #                       delimiter=',', skip_header=0, skip_footer=0)
     logging.info(str(generated.shape))
     logging.info(str(mocap.shape))
     gen = [list(g) for g in generated]
@@ -73,7 +102,7 @@ def run():
     logging.info("After: Generated: %s, Motion capture: %s" % (len(gen), len(moc)))
 
     save_path = '/home/mathias/PycharmProjects/MotionClassifier/dataset/'
-    suffix = 'x3'
+    suffix = 'x4'
     save_data(train_data, 'train%s.csv' % suffix, path=save_path)
     save_data(test_data, 'test%s.csv' % suffix, path=save_path)
     save_data(validation_data, 'validation%s.csv' % suffix, path=save_path)

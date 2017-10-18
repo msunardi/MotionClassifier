@@ -13,7 +13,7 @@ generated_motion_path = '/home/mathias/catkin_ws/src/motion_generator/src/csv/*.
 
 
 @elapsed
-def get_data(new_filename=None, batch_size=20, path='/home/mathias/Projects/Blender/dataset2/*.csv', keep_header=False):
+def get_data(new_filename=None, batch_size=20, path='/home/mathias/Projects/Blender/dataset2/*.csv', target_path=None, keep_header=False):
     """
     get_data
 
@@ -30,7 +30,9 @@ def get_data(new_filename=None, batch_size=20, path='/home/mathias/Projects/Blen
         index += 1
         new_filename = 'combined_%s.csv' % index
 
-    new_filename = base_path + new_filename
+    if not target_path:
+        target_path = '/home/mathias/PycharmProjects/MotionClassifier/dataset/'
+    new_filename = target_path + new_filename
 
     new_data = []
 
@@ -40,21 +42,36 @@ def get_data(new_filename=None, batch_size=20, path='/home/mathias/Projects/Blen
 
             # counter for batch for each file
             # Only add to combined file in multiples of batch_size
-            s = 0
-            batch = []
-
+            # s = 0
+            # batch = []
+            #
+            # for row in csvreader:
+            #     try:
+            #         np.array(row, dtype=np.float)
+            #         if s % batch_size == 0 and len(batch) > 0:
+            #             for b in batch:
+            #                 new_data.append(b)
+            #             batch = []
+            #         else:
+            #             batch.append(row)
+            #     except ValueError as v:
+            #         continue
+            #
+            #     s += 1
+            s = 1
             for row in csvreader:
+                line = []
                 try:
                     np.array(row, dtype=np.float)
-                    if s % batch_size == 0 and len(batch) > 0:
-                        for b in batch:
-                            new_data.append(b)
-                        batch = []
-                    else:
-                        batch.append(row)
-                except ValueError as v:
-                    continue
+                    fname = f.split('/')[-1]
 
+                    line += row
+                    line.append(fname)
+                    line.append(s)
+                    new_data.append(line)
+                except ValueError as v:
+                    print("Error: %s" % v)
+                    continue
                 s += 1
 
     with open(new_filename, 'w') as newcsv:
@@ -78,7 +95,8 @@ def get_derivative(filename, path=None, save=True):
     """
 
     if not path:
-        path = '/home/mathias/Projects/Blender/dataset2/'
+        # path = '/home/mathias/Projects/Blender/dataset2/'
+        path = '/home/mathias/PycharmProjects/MotionClassifier/dataset/'
 
     if '.csv' not in filename:
         raise ValueError('Must be a .csv file')
@@ -91,32 +109,44 @@ def get_derivative(filename, path=None, save=True):
         # Get the first line to calculate the receptacle (ndarray)
         yo = reader.next()
 
-        dofs = len(yo)
-        blah = np.array(yo, dtype=np.float).reshape(dofs, 1)
+        dofs = len(yo) - 2
+        blah = np.array(yo[:-2], dtype=np.float).reshape(dofs, 1)
         diff_array = np.ndarray((dofs, 0))
         diff_array = np.append(diff_array, blah, 1)
 
         count = 0
+        labels = []
+        labels.append(yo[-2:])
 
         for row in reader:
+            # print("Row: {0}".format(row))
             #             logging.info dofs
-            r = np.array(row, dtype=np.float)
+            r = np.array(row[:-2], dtype=np.float)
             #             logging.info r
             try:
-                r.resize(dofs, 1)
+                r.resize(len(row)-2, 1)
                 diff_array = np.append(diff_array, r, axis=1)
+                labels.append(row[-2:])
             except ValueError as e:
                 logging.info(row)
                 logging.error(e)
-                x = np.array(row, dtype=np.float).reshape(len(row), 1)
-                r = x.resize(diff_array.shape[0], 1)
+                rowx = [v for v in row[:-2]]
+                x = np.array(rowx, dtype=np.float).reshape(len(rowx), 1)
+                r = np.resize(x, (diff_array.shape[0], 1))
                 logging.info(r.shape)
                 diff_array = np.append(diff_array, r, axis=1)
-
                 count += 1
                 continue
 
-    diff = np.diff(diff_array).T
+    xdiff = np.diff(diff_array).T
+
+    # Attach labels back to data
+    diff = []
+    for x, y in zip(xdiff, labels):
+        z = [v for v in x] + y
+        diff.append(z)
+
+    logging.info("DIFF:\n{0}".format(diff[:10]))
 
     if save:
         try:
@@ -129,7 +159,7 @@ def get_derivative(filename, path=None, save=True):
         except IOError as e:
             logging.error(e)
 
-    logging.info("Diff shape: (%s x %s)" % diff.shape)
+    logging.info("Diff shape: (%s x %s)" % (len(diff), len(diff[0])))
     if count > 0:
         logging.info('Errors encountered: %s' % count)
 
@@ -147,6 +177,9 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
     :param batch_size: size of batch (sequence)
     :return out: collected data, gen: reduced generated motion data, moc: reduced motion capture data
     """
+    print("Collecting data:\ngen_source: {0}, moc_source: {1}, N: {2}, batch: {3}, dim: {4}".format(
+        len(generated_source), len(mocap_source), N, batch_size, data_dimensions
+    ))
     is_generated = True  # start with generated data
     gen = generated_source
     moc = mocap_source
@@ -186,19 +219,20 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
             try:
                 # If there are more dimensions than data_dimensions, try randomly pick sub-dimension
                 data_width = len(source[0])
-                if data_width > data_dimensions + 1:  # +1 to account for class value
+                if data_width > data_dimensions + 3:  # +3 to account for class value and labels
                     j = rn.choice(range(len(source[0])-(batch_size+1)))
                 else:
                     j = 0
 
                 for i in range(batch_size):
                     #                     logging.info("source [%s]: %s" % (p+i, source[p+i]))
-                    out.append(source.pop(p + i)[j:j+data_dimensions] + klass)
+                    popp = source.pop(p + i)
+                    out.append(popp[j:j+data_dimensions] + popp[-2:] + klass)
             except IndexError as e:
                 logging.error("Reached end of source.")
                 continue
             # out.append(sequence)
-            delimiter = [0.0] * (data_dimensions) + klass
+            delimiter = [0.0] * (data_dimensions+2) + klass  # +2 to include labels
             out.append(delimiter)
             #         logging.info(len(out))
     return out, gen, moc
