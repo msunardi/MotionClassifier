@@ -1,14 +1,18 @@
 from __future__ import print_function
 import time
-from datetime import timedelta
+from datetime import timedelta, datetime
 import logging
 import os
+
+now = datetime.now()
 
 if os.name == 'nt':
     logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
                         level=logging.DEBUG)
 else:
-    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_19.log', level=logging.DEBUG)
+    logging.basicConfig(
+        filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/01_%s.log' % now.strftime("%Y%m%d-%H%M%S"),
+        level=logging.DEBUG)
 
 
 def elapsed(func):

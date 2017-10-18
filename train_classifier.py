@@ -23,8 +23,12 @@ def run():
     trainpath = base_path + 'dataset/train%s.csv' % suffix
     testpath = base_path + 'dataset/test%s.csv' % suffix
     validationpath = base_path + 'dataset/validation%s.csv' % suffix
-    model_path = base_path + '/models'
+    model_path = base_path + '/models/gru'
+    # model_path = base_path + '/models_lstm'
+    model_name = 'model_gru_01'  # Update this with every run_gru_15
+    # model_name = 'model_lstm_3'  # Update this with every run_gru_15
 
+    # Parameters
     learning_rate = 5e-1
     seq_length = 10
     data_dim = 8
@@ -34,10 +38,7 @@ def run():
     hidden_size = 1024
     epochs = 80
     hidden_layers = 2
-
-    retrain_it = 1  # times
-
-    model_name = 'model_gru_16'  # Update this with every run_gru_15
+    retrain_it = 0 # times
 
     inputs, targets = get_the_fing_data(trainpath)
     validate_data, validate_target = get_the_fing_data(validationpath)
@@ -49,11 +50,12 @@ def run():
     save_model(model, '{0}/{1}_{2}.h5'.format(model_path, model_name, 0))
 
     # Repeat and retrain
-    for i in range(1, retrain_it):
-        model = retrain_model(i, model=model, x_train=inputs, y_train=targets, x_val=validate_data, y_val=validate_target,
-                              epochs=epochs, batch_size=batch_size)
-        test_the_thing(model, testpath, batch_size)
-        save_model(model, '{0}/{1}_{2}.h5'.format(model_path, model_name, i))
+    # for i in range(1, retrain_it+1):
+    #     model = retrain_model(i, model=model, x_train=inputs, y_train=targets,
+    #                           x_val=validate_data, y_val=validate_target,
+    #                           epochs=epochs, batch_size=batch_size)
+    #     test_the_thing(model, testpath, batch_size)
+    #     save_model(model, '{0}/{1}_{2}.h5'.format(model_path, model_name, i))
     print("Done!")
 
 

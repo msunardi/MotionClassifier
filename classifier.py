@@ -12,12 +12,18 @@ import json
 
 import os
 
+# Ref: https://stackoverflow.com/a/40164869
+from datetime import datetime
+now = datetime.now()
+
+# If Windows
 if os.name == 'nt':
     logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
                         level=logging.DEBUG)
 else:
-    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/classifier_19.log', level=logging.DEBUG)
+    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/01_%s.log' % now.strftime("%Y%m%d-%H%M%S"), level=logging.DEBUG)
 
+run_path = 'runs/gru_01'
 
 # tb = TensorBoard(log_dir='logs/', histogram_freq=0, write_graph=True,
 #                  write_images=False, embeddings_freq=0, embeddings_layer_names=None,
@@ -26,7 +32,9 @@ else:
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
                               patience=5, min_lr=0.001)
 
-csv_logger = CSVLogger('logs/training0.log')
+kind = 'gru'
+csv_logger = CSVLogger('logs/%s/training01.log' % kind)
+
 
 def get_the_fing_data(filepath):
     log_msg = "[GET DATA] "
@@ -41,7 +49,10 @@ def get_the_fing_data(filepath):
 
         for tr in reader:
 
-            if tr[:-1] == ['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0']:
+            # tr[:-n] where n depends on how the collated raw data is saved;
+            # .. new data format ends with <filename>, <frame number>, <class> so n = 3
+            # .. otherwise, n = 1 (no filename or frame number)
+            if tr[:-3] == ['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0']:
                 # Has to have the correct shape (10,8)
                 if np.array(tmp_data).shape == (10, 8):
                     data.append(list(tmp_data))
@@ -50,15 +61,17 @@ def get_the_fing_data(filepath):
                 tmp_target = []
 
             else:
-                tmp_data.append([float(i) for i in tr[:-1]])
+                tmp_data.append([float(i) for i in tr[:-3]])
                 #tmp_target.append([float(tr[-1])])
 
+                print(tr)
                 # One-hot version
                 if tr[-1] == "0.0":
                     tx = [1.0, 0.0]
                 elif tr[-1] == "1.0":
                     tx = [0.0, 1.0]
                 tmp_target.append(tx)
+                tmp_target.append(tr[-3:-2]) # append filename and frame number for analysis
 
 
     fdata = np.array(data)
@@ -121,7 +134,7 @@ def retrain_model(i, x_train, y_train, x_val, y_val, epochs, model=None, model_s
     x_reval = np.array(x_reval)[:val_size]
     y_reval = np.array(y_reval)[:val_size]
 
-    tbx = TensorBoard(log_dir='logs/retrain%s/' % i, histogram_freq=0, write_graph=True,
+    tbx = TensorBoard(log_dir='logs/%s/retrain_lstm_%s/' % (run_path, i), histogram_freq=0, write_graph=True,
                      write_images=False, embeddings_freq=0, embeddings_layer_names=None,
                      embeddings_metadata=None)
 
@@ -198,7 +211,7 @@ def do_the_thing(train_data, train_target, validation_data, validation_target, d
     logging.info(log_msg + str(x_train.shape))
     logging.info(log_msg + str(y_train.shape))
 
-    tb = TensorBoard(log_dir='logs/run_gru_15/', histogram_freq=0, write_graph=True,
+    tb = TensorBoard(log_dir='logs/%s/' % run_path, histogram_freq=0, write_graph=True,
                      write_images=False, embeddings_freq=0, embeddings_layer_names=None,
                      embeddings_metadata=None)
 
