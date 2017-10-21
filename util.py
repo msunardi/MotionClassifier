@@ -10,8 +10,11 @@ if os.name == 'nt':
     logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
                         level=logging.DEBUG)
 else:
+    # logging.basicConfig(
+    #     filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/04_%s.log' % now.strftime("%Y%m%d-%H%M%S"),
+    #     level=logging.DEBUG)
     logging.basicConfig(
-        filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/01_%s.log' % now.strftime("%Y%m%d-%H%M%S"),
+        filename='/home/mathias/PycharmProjects/MotionClassifier/logs/lstm/04_%s.log' % now.strftime("%Y%m%d-%H%M%S"),
         level=logging.DEBUG)
 
 

@@ -21,9 +21,11 @@ if os.name == 'nt':
     logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
                         level=logging.DEBUG)
 else:
-    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/01_%s.log' % now.strftime("%Y%m%d-%H%M%S"), level=logging.DEBUG)
+    # logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/05_%s.log' % now.strftime("%Y%m%d-%H%M%S"), level=logging.DEBUG)
+    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/lstm/04_%s.log' % now.strftime("%Y%m%d-%H%M%S"), level=logging.DEBUG)
 
-run_path = 'runs/gru_01'
+# run_path = 'runs/gru_04'
+run_path = 'runs/lstm_04'
 
 # tb = TensorBoard(log_dir='logs/', histogram_freq=0, write_graph=True,
 #                  write_images=False, embeddings_freq=0, embeddings_layer_names=None,
@@ -32,11 +34,13 @@ run_path = 'runs/gru_01'
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
                               patience=5, min_lr=0.001)
 
-kind = 'gru'
-csv_logger = CSVLogger('logs/%s/training01.log' % kind)
+# kind = 'gru/training04.log'
+kind = 'lstm/training04.log'
+# csv_logger = CSVLogger('logs/%s/training04.log' % kind)
+csv_logger = CSVLogger('logs/%s' % kind)
 
 
-def get_the_fing_data(filepath):
+def get_the_fing_data(filepath, is_test=False):
     log_msg = "[GET DATA] "
     data = []
     target = []
@@ -46,13 +50,13 @@ def get_the_fing_data(filepath):
         tmp_target = []
         #     reader = csv.DictReader(csvfile, fieldnames=['D%s'% x for x in range(8)]+['Class'])
         #     train_data = [tr for tr in reader if tr[:-1] != ['0.0','0.0','0.0','0.0','0.0','0.0','0.0','0.0']]
-
+        # count = 0
         for tr in reader:
 
             # tr[:-n] where n depends on how the collated raw data is saved;
             # .. new data format ends with <filename>, <frame number>, <class> so n = 3
             # .. otherwise, n = 1 (no filename or frame number)
-            if tr[:-3] == ['0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0', '0.0']:
+            if tr[:-1] == ['0.0']*(len(tr)-1):
                 # Has to have the correct shape (10,8)
                 if np.array(tmp_data).shape == (10, 8):
                     data.append(list(tmp_data))
@@ -64,15 +68,26 @@ def get_the_fing_data(filepath):
                 tmp_data.append([float(i) for i in tr[:-3]])
                 #tmp_target.append([float(tr[-1])])
 
-                print(tr)
+                # print("Else: {0}".format(tr))
+                tx = [0.0, 0.0]
                 # One-hot version
                 if tr[-1] == "0.0":
                     tx = [1.0, 0.0]
                 elif tr[-1] == "1.0":
                     tx = [0.0, 1.0]
-                tmp_target.append(tx)
-                tmp_target.append(tr[-3:-2]) # append filename and frame number for analysis
 
+                # ONLY FOR TEST DATA
+                if is_test:
+                    tx = [tx, tr[-3:-1]]  # append filename and frame number for analysis
+
+                tmp_target.append(tx)
+
+        #     count += 1
+        #     if count > 5:
+        #         break
+        #
+        # print(tmp_data)
+        # print(tmp_target)
 
     fdata = np.array(data)
     ftarget = np.array(target)
@@ -89,15 +104,26 @@ def shuffle(data, targets):
     shuffled_data = []
     shuffled_targets = []
     while len(d_data) > 1 and len(t_targets) > 1:
+        # Pick a random point within the number of data points
         pick = r.choice(range(len(d_data)))
+
+        # Create a mask to filter the data (and targets);
+        # ... effectively performing a 'pop' operation
         mask = np.ones(len(d_data), dtype=bool)
         mask[[pick]] = False
+
+        # Collect the picked data points and its corresponding target value
         shuffled_data.append(d_data[pick])
         shuffled_targets.append(t_targets[pick])
+
+        # Filter (pop) the data
         d_data = d_data[mask,...]
         t_targets = t_targets[mask,...]
-    shuffled_data.append(d_data[0])
-    shuffled_targets.append(t_targets[0])
+
+    # Add whatever is left over
+    # shuffled_data.append(d_data[0])
+    # shuffled_targets.append(t_targets[0])
+
     return np.array(shuffled_data), np.array(shuffled_targets)
 
 
@@ -134,9 +160,10 @@ def retrain_model(i, x_train, y_train, x_val, y_val, epochs, model=None, model_s
     x_reval = np.array(x_reval)[:val_size]
     y_reval = np.array(y_reval)[:val_size]
 
-    tbx = TensorBoard(log_dir='logs/%s/retrain_lstm_%s/' % (run_path, i), histogram_freq=0, write_graph=True,
-                     write_images=False, embeddings_freq=0, embeddings_layer_names=None,
-                     embeddings_metadata=None)
+    # tbx = TensorBoard(log_dir='logs/%s/retrain_lstm_%s/' % (run_path, i), histogram_freq=0, write_graph=True,
+    tbx=TensorBoard(log_dir='logs/%s/retrain_gru_%s/' % (run_path, i), histogram_freq=0, write_graph=True,
+                    write_images=False, embeddings_freq=0, embeddings_layer_names=None,
+                    embeddings_metadata=None)
 
     model0.fit(x_retrain, y_retrain,
                batch_size=batch_size, epochs=epochs, shuffle=True,
@@ -245,10 +272,10 @@ def test_the_thing(model, test_source=None, batch_size=50, save=True):
     """
     log_msg = "[TEST] "
     model = model
-    testpath = '/home/mathias/Projects/motion_data/testx.csv'
+    testpath = '/home/mathias/Projects/motion_data/testx5.csv'
     if test_source:
         testpath = test_source
-    test_data, test_target = get_the_fing_data(testpath)
+    test_data, test_target = get_the_fing_data(testpath, is_test=True)
 
     test_size = len(test_data) - (len(test_data) % batch_size)
     x_test = np.array(test_data)[:batch_size]
@@ -261,17 +288,30 @@ def test_the_thing(model, test_source=None, batch_size=50, save=True):
     correct = 0
     wrong = 0
 
-    for pred, yak in zip(predictions, y_test):
+    for pred, yk in zip(predictions, y_test):
         # p = np.mean(pred)
         # y = np.mean(yak)
         # d = abs(p-y)
+        # print(yk)
+        # print("Yk: {0}".format(yk))
+        yb = [f[0] for f in yk]
+        ylabel = [f[1] for f in yk]
+        yak = np.array(yb, dtype=np.float)   # Only take the first two values; the rest are labels
+        # print("Yak: {0}".format(yak))
         d, p, y = prediction_diff(yak, pred)
         show = "p vs y: %s - %s --> (abs) %s" % (p, y, d)
         if d < 0.3 :
             correct += 1
-            show += '*'
+            # show += '*'
         else:
             wrong += 1
+            show += '!'  # Mark wrong predictions
+
+        file_start = ylabel[0][0]
+        frame_start = ylabel[0][1]
+        file_end = ylabel[-1][0]
+        frame_end = ylabel[-1][1]
+        show += " data: {0} ({1}) - {2} ({3})".format(file_start, frame_start, file_end, frame_end)  # show the
         print(show)
         logging.info(log_msg + show)
 
@@ -281,6 +321,8 @@ def test_the_thing(model, test_source=None, batch_size=50, save=True):
 
 
 def prediction_diff(target, prediction):
+    # print("{0} ({1})".format(target, type(target)))
+    # print("{0} ({1})".format(prediction, type(prediction)))
     p = np.mean(prediction, axis=0)
     y = np.mean(target, axis=0)
     d = np.mean(np.abs(np.diff([y, p], axis=0)))

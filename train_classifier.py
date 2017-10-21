@@ -1,8 +1,6 @@
 from __future__ import print_function
-from dataset import *
 from classifier import *
 from util import elapsed
-import keras
 import os
 
 
@@ -16,17 +14,17 @@ def run():
     if os.name == 'nt':
         base_path = '/Users/Mathias/Documents/GitHub/MotionClassifier/'
 
-    suffix = 'x3'
+    suffix = 'x5'
     # trainpath = '/home/mathias/Projects/motion_data/trainx.csv'
     # testpath = '/home/mathias/Projects/motion_data/testx.csv'
     # validationpath = '/home/mathias/Projects/motion_data/validationx.csv'
     trainpath = base_path + 'dataset/train%s.csv' % suffix
     testpath = base_path + 'dataset/test%s.csv' % suffix
     validationpath = base_path + 'dataset/validation%s.csv' % suffix
-    model_path = base_path + '/models/gru'
-    # model_path = base_path + '/models_lstm'
-    model_name = 'model_gru_01'  # Update this with every run_gru_15
-    # model_name = 'model_lstm_3'  # Update this with every run_gru_15
+    # model_path = base_path + '/models/gru'
+    model_path = base_path + '/models/lstm'
+    # model_name = 'model_gru_04'  # Update this with every run_gru_15
+    model_name = 'model_lstm_04'  # Update this with every run_gru_15
 
     # Parameters
     learning_rate = 5e-1

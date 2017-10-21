@@ -9,22 +9,26 @@ from math import floor
 
 from util import elapsed
 from dataset import *
-# from classifier import get_the_fing_data
+
 logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/dataset.log', level=logging.DEBUG)
 
 
 @elapsed
 def run():
-    # get_newdata()
-    # get_derivative('synthetic.csv', save=True)
-    # get_the_fing_data('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic_derivative.csv')
+    get_newdata('mocap')
+    get_derivative('mocap2.csv', save=True)
+    get_newdata('synthetic')
+    get_derivative('synthetic2.csv', save=True)
     new_dataset()
 
 @elapsed
-def get_newdata():
-    logging.info("Collecting raw data into datasets...")
-    # get_data(new_filename='synthetic.csv', path='/home/mathias/catkin_ws/src/motion_generator/src/csv/*.csv')
-    get_data(new_filename='mocap.csv', path='/home/mathias/Projects/Blender/dataset2/*.csv')
+def get_newdata(kind):
+    logging.info("Collecting %s raw data into datasets..." % kind)
+    if kind == 'mocap':
+        get_data(new_filename='mocap2.csv', path='/home/mathias/Projects/Blender/dataset2/*.csv')
+    elif kind == 'synthetic':
+        get_data(new_filename='synthetic2.csv', path='/home/mathias/catkin_ws/src/motion_generator/src/csv/*.csv')
+
 
 @elapsed
 def new_dataset():
@@ -39,11 +43,11 @@ def new_dataset():
     #                       skip_header=0,
     #                       skip_footer=0)
 
-    generated = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic_derivative.csv',
+    generated = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic2_derivative.csv',
                               delimiter=',',
                               skip_header=0,
                               skip_footer=0, dtype=None)
-    mocap = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/mocap_derivative.csv',
+    mocap = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/mocap2_derivative.csv',
                           delimiter=',',
                           skip_header=0,
                           skip_footer=0, dtype=None)
@@ -102,7 +106,7 @@ def new_dataset():
     logging.info("After: Generated: %s, Motion capture: %s" % (len(gen), len(moc)))
 
     save_path = '/home/mathias/PycharmProjects/MotionClassifier/dataset/'
-    suffix = 'x4'
+    suffix = 'x5'
     save_data(train_data, 'train%s.csv' % suffix, path=save_path)
     save_data(test_data, 'test%s.csv' % suffix, path=save_path)
     save_data(validation_data, 'validation%s.csv' % suffix, path=save_path)
