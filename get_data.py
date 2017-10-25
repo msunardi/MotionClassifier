@@ -15,10 +15,10 @@ logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/log
 
 @elapsed
 def run():
-    get_newdata('mocap')
-    get_derivative('mocap2.csv', save=True)
-    get_newdata('synthetic')
-    get_derivative('synthetic2.csv', save=True)
+    # get_newdata('mocap')
+    # get_derivative('mocap2.csv', save=True)
+    # get_newdata('synthetic')
+    # get_derivative('synthetic2.csv', save=True)
     new_dataset()
 
 @elapsed
@@ -63,8 +63,8 @@ def new_dataset():
     moc = [list(m) for m in mocap]
     # generated_indices = generated.shape[0]
     # mocap_indices = mocap.shape[0]
-    sequence_size = 10
-    test_validation_ratio = 0.07
+    sequence_size = 24
+    test_validation_ratio = 0.1
     total_points = min(len(gen), len(moc))
     data_dimensions = 8
 
@@ -106,7 +106,7 @@ def new_dataset():
     logging.info("After: Generated: %s, Motion capture: %s" % (len(gen), len(moc)))
 
     save_path = '/home/mathias/PycharmProjects/MotionClassifier/dataset/'
-    suffix = 'x5'
+    suffix = 'x6'
     save_data(train_data, 'train%s.csv' % suffix, path=save_path)
     save_data(test_data, 'test%s.csv' % suffix, path=save_path)
     save_data(validation_data, 'validation%s.csv' % suffix, path=save_path)

@@ -24,11 +24,11 @@ def get_data(new_filename=None, batch_size=20, path='/home/mathias/Projects/Blen
     base_path = path.split('*.csv')[0]
 
     if not new_filename:
-        new_filename = 'combined.csv'
+        new_filename = 'datadata.csv'
     index = 0
     while base_path + new_filename in files:
         index += 1
-        new_filename = 'combined_%s.csv' % index
+        new_filename = 'datadata_%s.csv' % index
 
     if not target_path:
         target_path = '/home/mathias/PycharmProjects/MotionClassifier/dataset/'
@@ -184,7 +184,15 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
     gen = generated_source
     moc = mocap_source
     out = []
+
+    # Can stop if 90% of data is filled but it ran too long
+    reruns = 0
+
     while len(out) <= N:
+        if reruns >= 2*N and len(out) >= .9*N:
+            print("Breaking early - ran too long: reruns: %s - out size: %s" % (reruns, len(out)))
+            logging.warn("Breaking early - ran too long: reruns: %s - out size: %s" % (reruns, len(out)))
+            break
         sequence = []
         # Pick a random point in the dataset,
         # but make sure there are <sequence_size> datapoints from that point
@@ -208,7 +216,7 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
 
         p = rn.choice(range(l))
         if p < l - batch_size:  # or p in have_picked:
-
+            print("Found p(%s) < l(%s) - batch_size(%s)" % (p, l, batch_size))
             # Record points that have been used/picked
             # have_picked.append(p)
 
@@ -219,22 +227,52 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
             try:
                 # If there are more dimensions than data_dimensions, try randomly pick sub-dimension
                 data_width = len(source[0])
+                dof = 0
                 if data_width > data_dimensions + 3:  # +3 to account for class value and labels
-                    j = rn.choice(range(len(source[0])-(batch_size+1)))
-                else:
-                    j = 0
+                    dof = rn.choice(range(len(source[0])-(batch_size+1)))
 
-                for i in range(batch_size):
-                    #                     logging.info("source [%s]: %s" % (p+i, source[p+i]))
-                    popp = source.pop(p + i)
-                    out.append(popp[j:j+data_dimensions] + popp[-2:] + klass)
+                # Check if the batch is valid
+                # Grab the name from the first frame
+                clip_name = source[p][-2].strip()
+                # Grab the frame number of the first frame
+                clip_frame = int(source[p][-1])-1 # start with current frame -1
+
+                # Check that it's in all the to-be batch frames
+                all_good = True
+                for k in range(batch_size):
+                    # Check if the batch only contains frames from the same clip; skip if it doesn't
+                    if source[p+k][-2].strip() != clip_name:
+                        all_good = False
+                        print("Mixed clip: %s != %s" % (clip_name, source[p+k][-2]))
+                        logging.warn("Mixed clip: %s != %s" % (clip_name, source[p+k][-2]))
+                        break
+                    # Check if the frame numbers are contiguous; skip if it doesn't
+                    if int(source[p+k][-1]) != clip_frame + 1:
+                        all_good = False
+                        print("Non-contiguous clip: current_frame: %s - next_frame: %s" % (clip_frame, source[p + k][-1]))
+                        logging.warn("Non-contiguous: current_frame: %s - next_frame: %s" % (clip_frame, source[p + k][-1]))
+                        break
+                    clip_frame += 1
+
+                if all_good:
+                    for i in range(batch_size):
+                        # logging.info("source [%s]: %s" % (p+i, source[p+i]))
+                        popp = source.pop(p)
+                        out.append(popp[dof:dof+data_dimensions] + popp[-2:] + klass)
             except IndexError as e:
                 logging.error("Reached end of source.")
                 continue
             # out.append(sequence)
-            delimiter = [0.0] * (data_dimensions+2) + klass  # +2 to include labels
-            out.append(delimiter)
-            #         logging.info(len(out))
+            if all_good:
+                print("no good")
+                delimiter = [0.0] * (data_dimensions+2) + klass  # +2 to include labels
+                out.append(delimiter)
+                #         logging.info(len(out))
+        else:
+            print("p(%s) < l(%s) - batch_size(%s)" % (p, l, batch_size))
+
+        reruns += 1
+    logging.info("Out: %s" % len(out))
     return out, gen, moc
 
 
