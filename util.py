@@ -6,15 +6,25 @@ import os
 
 now = datetime.now()
 
+# Default logdir (Linux)
+logdir = '/home/mathias/PycharmProjects/MotionClassifier/logs/'
+
+lstm_id = '011'
+gru_id = '020'
+kind = 'GRU'
+
 if os.name == 'nt':
-    logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
-                        level=logging.DEBUG)
-else:
-    # logging.basicConfig(
-    #     filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/04_%s.log' % now.strftime("%Y%m%d-%H%M%S"),
-    #     level=logging.DEBUG)
+    logdir = '/Users/Mathias/Documents/GitHub/MotionClassifier/logs/'
+    # logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
+    #                     level=logging.DEBUG)
+
+if kind == 'GRU':
     logging.basicConfig(
-        filename='/home/mathias/PycharmProjects/MotionClassifier/logs/lstm/04_%s.log' % now.strftime("%Y%m%d-%H%M%S"),
+        filename=logdir + 'gru/{0}_{1}.log'.format(gru_id, now.strftime("%Y%m%d-%H%M%S")),
+        level=logging.DEBUG)
+elif kind == 'LSTM':
+    logging.basicConfig(
+        filename=logdir + 'lstm/{0}_{1}.log'.format(lstm_id, now.strftime("%Y%m%d-%H%M%S")),
         level=logging.DEBUG)
 
 

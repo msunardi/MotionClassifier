@@ -16,16 +16,26 @@ import os
 from datetime import datetime
 now = datetime.now()
 
+gru_id = '020'
+lstm_id = '011'
+
+rnnkind = 'GRU'
 # If Windows
 if os.name == 'nt':
     logging.basicConfig(filename='/Users/Mathias/Documents/GitHub/MotionClassifier/logs/classifier_18.log',
                         level=logging.DEBUG)
 else:
-    # logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/05_%s.log' % now.strftime("%Y%m%d-%H%M%S"), level=logging.DEBUG)
-    logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/lstm/04_%s.log' % now.strftime("%Y%m%d-%H%M%S"), level=logging.DEBUG)
+    if rnnkind == 'GRU':
+        logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/gru/%s_%s.log' % (gru_id, now.strftime("%Y%m%d-%H%M%S")), level=logging.DEBUG)
+    elif rnnkind == 'LSTM':
+        logging.basicConfig(filename='/home/mathias/PycharmProjects/MotionClassifier/logs/lstm/%s_%s.log' % (lstm_id, now.strftime("%Y%m%d-%H%M%S")), level=logging.DEBUG)
 
-# run_path = 'runs/gru_04'
-run_path = 'runs/lstm_04'
+if rnnkind == 'GRU':
+    run_path = 'runs/gru_' + gru_id
+    log_path = 'gru/training%s.log' % gru_id
+elif rnnkind == 'LSTM':
+    run_path = 'runs/lstm_' + lstm_id
+    log_path = 'lstm/training%s.log' % lstm_id
 
 # tb = TensorBoard(log_dir='logs/', histogram_freq=0, write_graph=True,
 #                  write_images=False, embeddings_freq=0, embeddings_layer_names=None,
@@ -34,13 +44,14 @@ run_path = 'runs/lstm_04'
 reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.2,
                               patience=5, min_lr=0.001)
 
-# kind = 'gru/training04.log'
-kind = 'lstm/training04.log'
+# kind = 'gru/training%s.log' % gru_id
+# kind = 'lstm/training%s.log' % lstm_id
 # csv_logger = CSVLogger('logs/%s/training04.log' % kind)
-csv_logger = CSVLogger('logs/%s' % kind)
+# csv_logger = CSVLogger('logs/%s' % kind)
+csv_logger = CSVLogger('logs/%s' % log_path)
 
 
-def get_the_fing_data(filepath, is_test=False):
+def get_the_fing_data(filepath, timesteps=10, features=8, is_test=False):
     log_msg = "[GET DATA] "
     data = []
     target = []
@@ -57,8 +68,8 @@ def get_the_fing_data(filepath, is_test=False):
             # .. new data format ends with <filename>, <frame number>, <class> so n = 3
             # .. otherwise, n = 1 (no filename or frame number)
             if tr[:-1] == ['0.0']*(len(tr)-1):
-                # Has to have the correct shape (10,8)
-                if np.array(tmp_data).shape == (10, 8):
+                # Has to have the correct shape (10,8) (timesteps, features)
+                if np.array(tmp_data).shape == (timesteps, features):
                     data.append(list(tmp_data))
                     target.append(list(tmp_target))
                 tmp_data = []
@@ -160,8 +171,12 @@ def retrain_model(i, x_train, y_train, x_val, y_val, epochs, model=None, model_s
     x_reval = np.array(x_reval)[:val_size]
     y_reval = np.array(y_reval)[:val_size]
 
-    # tbx = TensorBoard(log_dir='logs/%s/retrain_lstm_%s/' % (run_path, i), histogram_freq=0, write_graph=True,
-    tbx=TensorBoard(log_dir='logs/%s/retrain_gru_%s/' % (run_path, i), histogram_freq=0, write_graph=True,
+    if rnnkind == 'LSTM':
+        retrain_path = 'retrain_lstm'
+    elif rnnkind == 'GRU':
+        retrain_path = 'retrain_gru'
+
+    tbx=TensorBoard(log_dir='logs/{0}/{1}_{2}/'.format(run_path, retrain_path, i), histogram_freq=0, write_graph=True,
                     write_images=False, embeddings_freq=0, embeddings_layer_names=None,
                     embeddings_metadata=None)
 
@@ -174,7 +189,7 @@ def retrain_model(i, x_train, y_train, x_val, y_val, epochs, model=None, model_s
 
 
 def do_the_thing(train_data, train_target, validation_data, validation_target, data_dim, timesteps,
-                 num_classes, batch_size, hidden_size, epochs, hidden_layers, kind='LSTM'):
+                 num_classes, batch_size, hidden_size, epochs, hidden_layers, kind='GRU'):
     log_msg = "[DO THE THING] "
     inputs, targets = shuffle(train_data, train_target)
     validate_data, validate_target = shuffle(validation_data, validation_target)
@@ -262,7 +277,7 @@ def save_model(model, path):
 
 
 @elapsed
-def test_the_thing(model, test_source=None, batch_size=50, save=True):
+def test_the_thing(model, test_source=None, batch_size=50, timesteps=10, features=8, save=True):
     """
     Test a trained model
     :param model:
@@ -272,10 +287,11 @@ def test_the_thing(model, test_source=None, batch_size=50, save=True):
     """
     log_msg = "[TEST] "
     model = model
-    testpath = '/home/mathias/Projects/motion_data/testx5.csv'
+    testpath = '/home/mathias/Projects/motion_data/testx6.csv'
+    logging.info(log_msg + "Test file: %s" % testpath)
     if test_source:
         testpath = test_source
-    test_data, test_target = get_the_fing_data(testpath, is_test=True)
+    test_data, test_target = get_the_fing_data(testpath, timesteps=timesteps, features=features, is_test=True)
 
     test_size = len(test_data) - (len(test_data) % batch_size)
     x_test = np.array(test_data)[:batch_size]
@@ -305,7 +321,7 @@ def test_the_thing(model, test_source=None, batch_size=50, save=True):
             # show += '*'
         else:
             wrong += 1
-            show += '!'  # Mark wrong predictions
+            show += ' <!>'  # Mark wrong predictions
 
         file_start = ylabel[0][0]
         frame_start = ylabel[0][1]
