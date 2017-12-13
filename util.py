@@ -9,9 +9,9 @@ now = datetime.now()
 # Default logdir (Linux)
 logdir = '/home/mathias/PycharmProjects/MotionClassifier/logs/'
 
-lstm_id = '011'
-gru_id = '020'
-kind = 'GRU'
+lstm_id = '013'
+gru_id = '023'
+kind = 'TEST'
 
 if os.name == 'nt':
     logdir = '/Users/Mathias/Documents/GitHub/MotionClassifier/logs/'
@@ -25,6 +25,10 @@ if kind == 'GRU':
 elif kind == 'LSTM':
     logging.basicConfig(
         filename=logdir + 'lstm/{0}_{1}.log'.format(lstm_id, now.strftime("%Y%m%d-%H%M%S")),
+        level=logging.DEBUG)
+elif kind == 'TEST':
+    logging.basicConfig(
+        filename=logdir + 'test/{0}_{1}.log'.format(gru_id, now.strftime("%Y%m%d-%H%M%S")),
         level=logging.DEBUG)
 
 

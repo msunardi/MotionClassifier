@@ -16,8 +16,8 @@ import os
 from datetime import datetime
 now = datetime.now()
 
-gru_id = '020'
-lstm_id = '011'
+gru_id = '023'
+lstm_id = '013'
 
 rnnkind = 'GRU'
 # If Windows
@@ -287,7 +287,7 @@ def test_the_thing(model, test_source=None, batch_size=50, timesteps=10, feature
     """
     log_msg = "[TEST] "
     model = model
-    testpath = '/home/mathias/Projects/motion_data/testx6.csv'
+    testpath = '/home/mathias/Projects/motion_data/testx7.csv'
     logging.info(log_msg + "Test file: %s" % testpath)
     if test_source:
         testpath = test_source

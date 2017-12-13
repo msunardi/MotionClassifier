@@ -43,11 +43,20 @@ def new_dataset():
     #                       skip_header=0,
     #                       skip_footer=0)
 
-    generated = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic2_derivative.csv',
+    # generated = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic2_derivative.csv',
+    #                           delimiter=',',
+    #                           skip_header=0,
+    #                           skip_footer=0, dtype=None)
+    # mocap = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/mocap2_derivative.csv',
+    #                       delimiter=',',
+    #                       skip_header=0,
+    #                       skip_footer=0, dtype=None)
+
+    generated = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/synthetic2_derivative_and_2nd_derivative.csv',
                               delimiter=',',
                               skip_header=0,
                               skip_footer=0, dtype=None)
-    mocap = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/mocap2_derivative.csv',
+    mocap = np.genfromtxt('/home/mathias/PycharmProjects/MotionClassifier/dataset/mocap2_derivative_and_2nd_derivative_cut.csv',
                           delimiter=',',
                           skip_header=0,
                           skip_footer=0, dtype=None)
@@ -66,7 +75,7 @@ def new_dataset():
     sequence_size = 24
     test_validation_ratio = 0.1
     total_points = min(len(gen), len(moc))
-    data_dimensions = 8
+    data_dimensions = 16
 
     # total_points is used to balance the +/- samples
     # the maximum number of points is 2xtotal_points; use only part of that
@@ -106,7 +115,7 @@ def new_dataset():
     logging.info("After: Generated: %s, Motion capture: %s" % (len(gen), len(moc)))
 
     save_path = '/home/mathias/PycharmProjects/MotionClassifier/dataset/'
-    suffix = 'x6'
+    suffix = 'x7'
     save_data(train_data, 'train%s.csv' % suffix, path=save_path)
     save_data(test_data, 'test%s.csv' % suffix, path=save_path)
     save_data(validation_data, 'validation%s.csv' % suffix, path=save_path)

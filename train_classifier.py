@@ -18,7 +18,7 @@ def run():
     if os.name == 'nt':
         base_path = '/Users/Mathias/Documents/GitHub/MotionClassifier/'
 
-    suffix = 'x6'
+    suffix = 'x7'
     # trainpath = '/home/mathias/Projects/motion_data/trainx.csv'
     # testpath = '/home/mathias/Projects/motion_data/testx.csv'
     # validationpath = '/home/mathias/Projects/motion_data/validationx.csv'
@@ -43,12 +43,12 @@ def run():
     # Parameters
     learning_rate = 5e-1
     seq_length = 24
-    data_dim = 8
+    data_dim = 16
     timesteps = seq_length
     num_classes = 2
     batch_size = 60
     hidden_size = 128
-    epochs = 200
+    epochs = 150
     hidden_layers = 3
     retrain_it = 0 # times
 

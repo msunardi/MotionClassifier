@@ -215,6 +215,7 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
         #         source_size = len(source[0])
 
         p = rn.choice(range(l))
+
         if p < l - batch_size:  # or p in have_picked:
             print("Found p(%s) < l(%s) - batch_size(%s)" % (p, l, batch_size))
             # Record points that have been used/picked
@@ -228,13 +229,14 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
                 # If there are more dimensions than data_dimensions, try randomly pick sub-dimension
                 data_width = len(source[0])
                 dof = 0
-                if data_width > data_dimensions + 3:  # +3 to account for class value and labels
-                    dof = rn.choice(range(len(source[0])-(batch_size+1)))
+                # if data_width > data_dimensions + 3:  # +3 to account for class value and labels
+                #     dof = rn.choice(range(len(source[0])-(batch_size+1)))
 
                 # Check if the batch is valid
                 # Grab the name from the first frame
                 clip_name = source[p][-2].strip()
                 # Grab the frame number of the first frame
+                print(source[p])
                 clip_frame = int(source[p][-1])-1 # start with current frame -1
 
                 # Check that it's in all the to-be batch frames
@@ -246,7 +248,7 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
                         print("Mixed clip: %s != %s" % (clip_name, source[p+k][-2]))
                         logging.warn("Mixed clip: %s != %s" % (clip_name, source[p+k][-2]))
                         break
-                    # Check if the frame numbers are contiguous; skip if it doesn't
+                    # Check if the frame numbers are contiguous; skip if it doesn't 
                     if int(source[p+k][-1]) != clip_frame + 1:
                         all_good = False
                         print("Non-contiguous clip: current_frame: %s - next_frame: %s" % (clip_frame, source[p + k][-1]))
@@ -259,12 +261,14 @@ def collect_data(generated_source, mocap_source, N, batch_size, data_dimensions)
                         # logging.info("source [%s]: %s" % (p+i, source[p+i]))
                         popp = source.pop(p)
                         out.append(popp[dof:dof+data_dimensions] + popp[-2:] + klass)
+                    print("Done adding data: %s" % out[-1][-2])
+                    logging.info("Done adding data: %s" % out[-1][-2])
             except IndexError as e:
                 logging.error("Reached end of source.")
                 continue
             # out.append(sequence)
             if all_good:
-                print("no good")
+                print("Adding delimiter")
                 delimiter = [0.0] * (data_dimensions+2) + klass  # +2 to include labels
                 out.append(delimiter)
                 #         logging.info(len(out))
